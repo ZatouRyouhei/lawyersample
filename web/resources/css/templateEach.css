@@ -1,0 +1,62 @@
+@charset "UTF-8";
+
+body {
+    display: grid;
+    grid-template-columns: 20px 350px 1fr 20px;
+    grid-template-rows:
+        [head] 90px
+        [main] 650px
+        [foot] 80px;
+    grid-row-gap: 40px;
+    row-gap: 40px;
+    grid-column-gap: 20px;
+    column-gap: 20px;
+}
+
+header {
+    grid-column: 1 / -1;
+    grid-row: head / span 1;
+    background-color: #262626;
+    color: #ffffff;
+    box-shadow: 0 5px 5px rgba(0,0,0,0.4);
+}
+
+header h1 {
+    margin-top: 25px;
+    margin-left:130px;
+}
+
+footer {
+    grid-column: 3 / 4;
+    grid-row: foot / span 1;
+    justify-self: end;
+    align-self: center;
+}
+
+#id_title_logo {
+    grid-column: 1 / -1;
+    grid-row: head / span 1;
+    justify-self: start;
+    align-self: center;
+    margin-left: 40px;
+    z-index: 1;
+    width: 70px;
+}
+
+#userIcon {
+    grid-column: 1 / -1;
+    grid-row: head / span 1;
+    justify-self: end;
+    align-self: center;
+    margin-right: 40px;
+}
+
+nav {
+    grid-column: 2 / 3;
+    grid-row: main / span 1;
+}
+
+#container {
+    grid-column: 3 / 4;
+    grid-row: main / span 1;
+}

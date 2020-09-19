@@ -1,0 +1,39 @@
+@charset "UTF-8";
+
+body {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows:
+        [logo] 400px;
+        [login] auto;
+    row-gap: 20px;
+}
+
+figure {
+    grid-column: 1 / -1;
+    grid-row: logo / span 1;
+    justify-self: center;
+    align-self: end;
+}
+
+section {
+    grid-column: 1 / -1;
+    grid-row: login / span 1;
+    justify-self: center;
+    align-self: start;
+}
+
+#id_form {
+    width: 270px;
+}
+#id_loginId {
+    width: 256px;
+}
+#id_password {
+    width: 256px;
+}
+
+.ui-float-label {
+    margin-bottom: 20px;
+}
+

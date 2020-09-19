@@ -1,0 +1,71 @@
+@charset "UTF-8";
+
+* {
+    margin: 0;
+}
+body {
+    background-color: #f5f5f5;
+    font-family: sans-serif;
+}
+
+.ui-button.deleteBtn {
+    background-color: #cd5c5c;
+    border: 1px solid #cd5c5c;
+}
+.ui-button.ui-state-focus.deleteBtn {
+    background-color: #cd5c5c;
+    border: 1px solid #cd5c5c;
+    outline: none;
+}
+
+.ui-button.deleteBtn:hover {
+    background-color: #b94a48;
+    border: 1px solid #b94a48;
+}
+
+.ui-button.downloadBtn {
+    background-color: #228b22;
+    border: 1px solid #228b22;
+}
+.ui-button.ui-state-focus.downloadBtn {
+    background-color: #228b22;
+    border: 1px solid #228b22;
+    outline: none;
+}
+
+.ui-button.downloadBtn:hover {
+    background-color: #186618;
+    border: 1px solid #186618;
+}
+
+.ui-button.normalBtn {
+    background-color: #a0a0a0;
+    border: 1px solid #a0a0a0;
+}
+.ui-button.ui-state-focus.normalBtn {
+    background-color: #a0a0a0;
+    border: 1px solid #a0a0a0;
+    outline: none;
+}
+
+.ui-button.normalBtn:hover {
+    background-color: #8b8b8b;
+    border: 1px solid #8b8b8b;
+}
+
+.ui-button.userIcon {
+    border-radius: 50%;
+    
+}
+
+.ui-button.ui-button-icon-only.userIcon {
+    width: 50px;
+    height: 50px;
+    font-size: 2em;
+}
+
+.ui-button.ui-state-focus.userIcon {
+    outline: none;
+}
+
+

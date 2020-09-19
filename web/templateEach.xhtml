@@ -1,0 +1,108 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="/template.xhtml">
+            <ui:define name="head">
+                <h:outputStylesheet library="css" name="templateEach.css"/>
+                <script>
+                    function loadStart() {
+                        $("#loading").show();
+                    }
+                    function loadEnd() {
+                        $("#loading").hide();
+                    }
+                    
+                    PrimeFaces.locales['ja'] = {
+                        closeText: '閉じる',
+                        prevText: '前',
+                        nextText: '次',
+                        monthNames: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
+                        monthNamesShort: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
+                        dayNames: ['日', '月', '火', '水', '木', '金', '土'],
+                        dayNamesShort: ['日', '月', '火', '水', '木', '金', '土'],
+                        dayNamesMin: ['日', '月', '火', '水', '木', '金', '土'],
+                        weekHeader: '週',
+                        firstDay: 0,
+                        isRTL: false,
+                        showMonthAfterYear: true,
+                        yearSuffix: '年',
+                        today: '今日',
+                        clear: 'クリア'
+                    };
+                </script>
+                <ui:insert name="headEach"/>
+            </ui:define>
+            <ui:define name="content">
+                <p:graphicImage id="id_title_logo" library="img" name="logo2.png"/>
+                
+                <header>
+                    <h1>システム</h1>
+                </header>
+                
+                <div id="userIcon">
+                    <h:form prependId="false" id="id_commonForm">
+                        <p:commandButton id="dynaButton" type="button" icon="pi pi-user" class="userIcon"/>
+                        <p:menu overlay="true" trigger="dynaButton" my="left top" at="left bottom">
+                            <p:submenu label="#{loginSession.name}さん">
+                                <p:menuitem value="パスワード変更" onclick="PF('passwordDlg').show();" icon="pi pi-pencil"/>
+                                <p:menuitem value="ログアウト" action="#{a0010.logout()}" icon="pi pi-sign-out"/>
+                            </p:submenu>
+                        </p:menu>
+                    </h:form>
+
+                    <!-- パスワード変更ダイアログ -->
+                    <p:dialog header="パスワード変更" widgetVar="passwordDlg" modal="true" showEffect="fade" id="id_password_dlg" height="300" width="700" resizable="false">
+                        <h:form id="id_change_password_form">
+                            <p:messages id="change_password_msg" closable="true" globalOnly="true"/>
+                            <h:panelGrid id="grid" columns="3" cellpadding="5">
+                                <p:outputLabel for="id_change_password" value="パスワード" />
+                                <p:password id="id_change_password" value="#{a0010.changePassword}" required="true" maxlength="10"/>
+                                <p:message for="id_change_password" />
+                                
+                                <p:outputLabel for="id_change_password_confirm" value="パスワード（確認）" />
+                                <p:password id="id_change_password_confirm" value="#{a0010.changePasswordConfirm}" required="true" maxlength="10"/>
+                                <p:message for="id_change_password_confirm" />
+                            </h:panelGrid>
+                            <p:commandButton action="#{a0010.changePassword()}" value="変更" update="id_change_password_form" icon="pi pi-pencil" style="margin-top: 20px;"/>
+                        </h:form>
+                    </p:dialog>
+                </div>
+                
+                <!-- メニュー -->
+                <nav>
+                    <h:form id="id_menu_form">
+                        <p:panelMenu style="width:300px">
+                            <p:submenu label="メニュー" expanded="true">
+                                <p:menuitem value="B0010" outcome="/b/b0010" icon="pi pi-save" ajax="false"/>
+                                <p:menuitem value="B0020" outcome="/b/b0020" icon="pi pi-refresh" ajax="false"/>
+                            </p:submenu>
+                            <p:submenu label="メニュー２" expanded="true">
+                                <p:menuitem value="メニュー１" icon="pi pi-save" />
+                                <p:menuitem value="メニュー２" icon="pi pi-refresh" />
+                            </p:submenu>
+                        </p:panelMenu>
+                    </h:form>
+                </nav>
+                
+                <!-- 個別ページ内容 -->
+                <div id="container">
+                    <ui:insert name="contentEach"/>
+                </div>
+                
+                <!-- ローディング -->
+                <footer>
+                    <i class="pi pi-spin pi-spinner" style="font-size: 6em; display: none;" id="loading"></i>
+                </footer>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

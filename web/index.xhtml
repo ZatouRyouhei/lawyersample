@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="/template.xhtml">
+            <ui:define name="head">
+                <h:outputStylesheet library="css" name="index.css"/>
+            </ui:define>
+            <ui:define name="content">
+                <!-- 画面ロード時にセッションが残っている場合はログアウトする。 -->
+                <f:metadata>
+                    <f:viewAction action="#{a0010.onload()}" />
+                </f:metadata>
+                
+                <figure>
+                    <p:graphicImage library="img" name="logo.png"/>
+                </figure>
+                
+                <section>
+                    <h:form prependId="false" id="id_form">
+                        <p:messages id="msgs" closable="true" globalOnly="true"/>
+                        <span class="ui-float-label">
+                            <p:inputText id="id_loginId" value="#{a0010.loginId}" />
+                            <p:outputLabel for="@previous" value="ログインID" />
+                        </span>
+                        <span class="ui-float-label">
+                            <p:password id="id_password" value="#{a0010.password}" class="allow_submit" size="40"/>
+                            <p:outputLabel for="@previous" value="パスワード" />
+                        </span>
+                        <p:commandButton action="#{a0010.login()}" value="ログイン" update="id_form" icon="pi pi-sign-in" style="width:256px;"/>
+                    </h:form>
+                </section>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+
