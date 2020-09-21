@@ -2,7 +2,7 @@
 
 #id_b0010_form {
     display: grid;
-    grid-template-columns: 1fr 2fr 2fr 1fr;
+    grid-template-columns: 230px 390px 1fr 90px;
     grid-template-rows:
         [head] 80px
         [table] auto;
