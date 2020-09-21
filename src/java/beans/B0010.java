@@ -26,6 +26,8 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.util.JRLoader;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
@@ -63,13 +65,15 @@ public class B0010 extends SuperBb implements Serializable {
     // ファイルダウンロード用
     private StreamedContent downloadFile;
     
-
+    private final Logger logger = LogManager.getLogger();
+    
     public String update() {
         Memo memo = memoDb.search(selectedMemo.getId());
         memo.setDetail(selectedMemo.getDetail());
         memo.setRegistDate(selectedMemo.getRegistDate());
         memoDb.update(memo);
         addMessage(FacesMessage.SEVERITY_INFO, "変更しました。");
+        logger.trace("Start");
         return "";
     }
     
@@ -91,10 +95,6 @@ public class B0010 extends SuperBb implements Serializable {
     public void closeDlg() {
         detail = "";
         registDate = null;
-    }
-    
-    public String goToB0010() {
-        return "/b/b0010.xhtml";
     }
     
 //    public String download() {
@@ -265,6 +265,7 @@ public class B0010 extends SuperBb implements Serializable {
             try {
                 JasperReport jasperReport = (JasperReport)JRLoader.loadObject(jasperFile);
                 Map<String, Object> params = new HashMap<>();
+                params.put("userName", loginSession.getName());
                 List<Memo> memoList = memoDb.searchMemo(searchDetail, searchRegistDate);
                 JasperPrint pdf = JasperFillManager.fillReport(jasperReport, params, new JRBeanCollectionDataSource(memoList));
                 
