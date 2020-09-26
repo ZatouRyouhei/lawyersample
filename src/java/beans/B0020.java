@@ -31,7 +31,9 @@ public class B0020 extends SuperBb implements Serializable {
     
     public String createSentenceTemplate() {
         Sentence selectSentence = sentenceDb.search(new SentenceKey(sentenceType, sentenceSubType));
-        sentence = selectSentence.getSentence();
+        if (selectSentence != null) {
+            sentence = selectSentence.getSentence();
+        }
         return "";
     }
     

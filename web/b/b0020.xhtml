@@ -17,28 +17,29 @@
             <ui:define name="contentEach">
                 <h:form prependId="false" id="id_b0020_form">
                     <p:messages id="id_b0020_msg" closable="true" globalOnly="true"/>
-                    <div id="id_template_btn">
-                        <p:commandButton value="テンプレート選択" onclick="PF('templateDialog').show();"/>
-                    </div>
                     <h:panelGrid id="id_panel" columns="3" cellpadding="5">
                         <p:outputLabel for="id_sentence" value="文章" />
                         <p:inputTextarea id="id_sentence" rows="10" cols="50" maxlength="50" value="#{b0020.sentence}" required="true"/>
                         <p:message for="id_sentence" />
-                        
+
                         <p:outputLabel for="id_others" value="その他"/>
                         <p:inputText id="id_others" required="true" value="#{b0020.others}"/>
                         <p:message for="id_others" />
                     </h:panelGrid>
                     <div id="id_b0020_btn">
-                        <p:commandButton value="登録" action="#{b0020.regist()}" update="id_b0020_form" icon="pi pi-pencil"/>
+                        <p:commandButton value="登録" action="#{b0020.regist()}" update="id_b0020_form" icon="pi pi-pencil" />
                     </div>
                 </h:form>
+                
+                <div id="id_template_btn">
+                    <p:commandButton type="button" value="テンプレート選択" onclick="PF('templateDialog').show();"/>
+                </div>
                 
                 <p:dialog id="id_b0020_template_dlg" header="テンプレート選択" widgetVar="templateDialog" modal="true" showEffect="fade" resizable="false"  height="300" width="500">
                     <h:form id="id_b0020_template_form">
                         <h:panelGrid columns="3" cellpadding="5">
                             <p:outputLabel for="id_sentenceType" value="文章タイプ" />
-                            <p:selectOneMenu id="id_sentenceType" value="#{b0020.sentenceType}" effect="fold" effectSpeed="fast">
+                            <p:selectOneMenu id="id_sentenceType" value="#{b0020.sentenceType}" effect="fold" effectSpeed="fast" >
                                 <f:selectItem itemLabel="--選択--" noSelectionOption="true"/>
                                 <f:selectItems value="#{sentenceType.items}"/>
                                 <p:ajax event="change" listener="#{b0020.createSentenceSubList()}" update="id_sentenceSubType"/>
@@ -51,7 +52,9 @@
                             </p:selectOneMenu>
                             <p:message for="id_sentenceSubType" />
                         </h:panelGrid>
-                        <p:commandButton value="決定" action="#{b0020.createSentenceTemplate()}" onclick="PF('templateDialog').hide();" update=":id_b0020_form:id_sentence" style=" margin-top: 20px;" icon="pi pi-check"/>
+                        <!-- onclickでダイアログを閉じると画面が再描画されるので入れていない。 -->
+                        <!-- 入力エラーが出ている状態だと、選択値が反映されない。 -->
+                        <p:commandButton value="決定" action="#{b0020.createSentenceTemplate()}" update=":id_b0020_form:id_sentence" icon="pi pi-check"/>
                     </h:form>
                 </p:dialog>
             </ui:define>

@@ -1,39 +1,40 @@
 @charset "UTF-8";
 
-#id_b0020_form {
+#container {
     display: grid;
     grid-template-columns: 750px 1fr;
-    grid-template-rows:
-        [row1] 60px
-        [row2] 320px
-        [row3] auto;
-    grid-row-gap: 20px;
-    row-gap: 20px;
     grid-column-gap: 20px;
     column-gap: 20px;
 }
 
-#id_b0020_msg {
-    grid-column: 1 / -1;
-    grid-row: row1 / span 1;
+#id_b0020_form {
+    grid-column: 1 / 2;
+    display: grid;
+    grid-template-rows:
+        [row1] 80px
+        [row2] 300px
+        [row3] auto;
+    grid-row-gap: 20px;
+    row-gap: 20px;
 }
 
 #id_template_btn {
     grid-column: 2 / 3;
-    grid-row: row2 / span 1;
     justify-self: end;
     align-self: start;
 }
 
+#id_b0020_msg {
+    grid-row: row1 / span 1;
+}
+
 #id_panel {
-    grid-column: 1 / 2;
     grid-row: row2 / span 1;
     justify-self: start;
     align-self: start;
 }
 
 #id_b0020_btn {
-    grid-column: 1 / 2;
     grid-row: row3 / span 1;
     justify-self: start;
     align-self: start;
