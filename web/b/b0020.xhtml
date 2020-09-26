@@ -52,9 +52,10 @@
                             </p:selectOneMenu>
                             <p:message for="id_sentenceSubType" />
                         </h:panelGrid>
-                        <!-- onclickでダイアログを閉じると画面が再描画されるので入れていない。 -->
-                        <!-- 入力エラーが出ている状態だと、選択値が反映されない。 -->
-                        <p:commandButton value="決定" action="#{b0020.createSentenceTemplate()}" update=":id_b0020_form:id_sentence" icon="pi pi-check"/>
+                        <!-- 入力エラーが出ている状態だと、選択値が反映されないため、 p:resetInputタグでリセットする。-->
+                        <p:commandButton value="決定" action="#{b0020.createSentenceTemplate()}" onclick="PF('templateDialog').hide();" update=":id_b0020_form:id_sentence" icon="pi pi-check" >
+                            <p:resetInput target="id_b0020_form" />
+                        </p:commandButton>
                     </h:form>
                 </p:dialog>
             </ui:define>
