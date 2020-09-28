@@ -56,7 +56,8 @@
                                     selectionMode="single"
                                     selection="#{b0010.selectedMemo}"
                                     rowKey="#{memo.id}">
-                           <p:ajax event="rowSelect" oncomplete="PF('updateDialog').show()" update="id_b0010_detail_form"/>
+                            <!-- 直前に開いたダイアログでバリデーションエラーの情報をリセットするため、resetValues="true"をつける -->
+                            <p:ajax event="rowSelect" oncomplete="PF('updateDialog').show()" update="id_b0010_detail_form" resetValues="true"/>
                            <p:column headerText="ID">
                                <h:outputText value="#{memo.id}"/>
                            </p:column>
@@ -94,7 +95,8 @@
                             <p:message for="id_registdate" />
                         </h:panelGrid>
                         <p:commandButton action="#{b0010.update()}" value="変更" update="id_b0010_detail_form id_b0010_form" icon="pi pi-pencil" style="margin-right: 40px; margin-top: 20px;"/>
-                        <p:commandButton action="#{b0010.delete()}" value="削除" update="id_b0010_detail_form id_b0010_form" icon="pi pi-times" class="deleteBtn">
+                        <!-- 変更時のバリデーションが動かないようにprocess="@this"をつける -->
+                        <p:commandButton action="#{b0010.delete()}" value="削除" update="id_b0010_detail_form id_b0010_form" icon="pi pi-times" class="deleteBtn" process="@this">
                             <p:confirm header="確認" message="削除しますか？" icon="pi pi-exclamation-triangle" />
                         </p:commandButton>
                         <p:confirmDialog global="true" showEffect="fade">
