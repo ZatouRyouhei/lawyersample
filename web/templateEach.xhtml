@@ -44,7 +44,7 @@
                 <p:graphicImage id="id_title_logo" library="img" name="logo2.png"/>
                 
                 <header>
-                    <h1>システム</h1>
+                    <h2>システム</h2>
                 </header>
                 
                 <div id="userIcon">
@@ -79,7 +79,7 @@
                 <!-- メニュー -->
                 <nav>
                     <h:form id="id_menu_form">
-                        <p:panelMenu style="width:300px">
+                        <p:menu style="width:200px">
                             <p:submenu label="メニュー" expanded="true">
                                 <p:menuitem value="B0010" outcome="/b/b0010" icon="pi pi-save" ajax="false"/>
                                 <p:menuitem value="B0020" outcome="/b/b0020" icon="pi pi-refresh" ajax="false"/>
@@ -88,8 +88,15 @@
                                 <p:menuitem value="メニュー１" icon="pi pi-save" />
                                 <p:menuitem value="メニュー２" icon="pi pi-refresh" />
                             </p:submenu>
-                        </p:panelMenu>
+                        </p:menu>
                     </h:form>
+                    
+                    <!--
+                    <ul id="id_munu_ul">
+                        <li><h:link outcome="/b/b0010" value="B0010"/></li>
+                        <li><h:link outcome="/b/b0020" value="B0020"/></li>
+                    </ul>
+                    -->
                 </nav>
                 
                 <!-- 個別ページ内容 -->

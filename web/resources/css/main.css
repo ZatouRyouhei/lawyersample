@@ -69,9 +69,9 @@ body {
 }
 
 .ui-button.ui-button-icon-only.userIcon {
-    width: 50px;
-    height: 50px;
-    font-size: 2em;
+    width: 40px;
+    height: 40px;
+    font-size: 1.8em;
 }
 
 .ui-button.ui-state-focus.userIcon {

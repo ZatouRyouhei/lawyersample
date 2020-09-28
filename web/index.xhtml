@@ -26,15 +26,17 @@
                 <section>
                     <h:form prependId="false" id="id_form">
                         <p:messages id="msgs" closable="true" globalOnly="true"/>
-                        <span class="ui-float-label">
-                            <p:inputText id="id_loginId" value="#{a0010.loginId}" />
-                            <p:outputLabel for="@previous" value="ログインID" />
-                        </span>
-                        <span class="ui-float-label">
-                            <p:password id="id_password" value="#{a0010.password}" class="allow_submit" size="40"/>
-                            <p:outputLabel for="@previous" value="パスワード" />
-                        </span>
-                        <p:commandButton action="#{a0010.login()}" value="ログイン" update="id_form" icon="pi pi-sign-in" style="width:256px;"/>
+                        <div id="id_form_panel">
+                            <span class="ui-float-label">
+                                <p:inputText id="id_loginId" value="#{a0010.loginId}" />
+                                <p:outputLabel for="@previous" value="ログインID" />
+                            </span>
+                            <span class="ui-float-label">
+                                <p:password id="id_password" value="#{a0010.password}" class="allow_submit" size="40"/>
+                                <p:outputLabel for="@previous" value="パスワード" />
+                            </span>
+                            <p:commandButton action="#{a0010.login()}" value="ログイン" update="id_form" icon="pi pi-sign-in" style="width:256px;"/>
+                        </div>
                     </h:form>
                 </section>
             </ui:define>

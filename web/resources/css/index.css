@@ -4,9 +4,8 @@ body {
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows:
-        [logo] 400px;
+        [logo] 400px
         [login] auto;
-    row-gap: 20px;
 }
 
 figure {
@@ -25,7 +24,24 @@ section {
 
 #id_form {
     width: 270px;
+    display: grid;
+    grid-template-rows:
+        [row1] 80px
+        [row2] auto;
 }
+
+#msgs {
+    grid-row: row1 / span 1;
+    justify-self: center;
+    align-self: start;
+}
+
+#id_form_panel {
+    grid-row: row2 / span 1;
+    justify-self: center;
+    align-self: start;
+}
+
 #id_loginId {
     width: 256px;
 }
