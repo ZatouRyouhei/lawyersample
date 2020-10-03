@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,7 +20,9 @@ import javax.faces.view.ViewScoped;
 
 import javax.inject.Inject;
 import javax.inject.Named;
+import net.sf.jasperreports.engine.JREmptyDataSource;
 import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRPrintPage;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -273,6 +276,71 @@ public class B0010 extends SuperBb implements Serializable {
                 byte[] bytes = JasperExportManager.exportReportToPdf(pdf);
                 downloadFile = DefaultStreamedContent.builder()
                             .name("メモ一覧.pdf")
+                            .contentType("application/pdf")
+                            .stream(() -> new ByteArrayInputStream(bytes))
+                            .build();
+                return downloadFile;
+            } catch (JRException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return null;
+    }
+    
+    /**
+     * PDFファイルダウンロード
+     * @return 
+     */
+    public StreamedContent getDetailPdfDownload() {
+        String formPath = getRealPath("resources/form/template2.jasper");
+        File jasperFile = new File(formPath);
+        String formPath2 = getRealPath("resources/form/template2_2.jasper");
+        File jasperFile2 = new File(formPath2);
+        if(jasperFile.exists() && jasperFile2.exists()){
+            try {
+                // 一人目
+                // １ページ目
+                JasperReport jasperReport = (JasperReport)JRLoader.loadObject(jasperFile);
+                Map<String, Object> params = new HashMap<>();
+                params.put("id", selectedMemo.getId());
+                params.put("registDate", selectedMemo.getRegistDate());
+                params.put("detail", selectedMemo.getDetail());
+
+                // 個票の場合はJREmptyDataSource()を入れる。
+                JasperPrint pdf = JasperFillManager.fillReport(jasperReport, params, new JREmptyDataSource());
+
+                // ２ページ目
+                JasperReport jasperReport2 = (JasperReport)JRLoader.loadObject(jasperFile2);
+                Map<String, Object> params2 = new HashMap<>();
+                params2.put("userName", loginSession.getName());
+                JasperPrint pdf2 = JasperFillManager.fillReport(jasperReport2, params2, new JREmptyDataSource());
+                pdf2.getPages().forEach(page -> pdf.addPage(page));
+
+                // 二人以上いる場合
+                for (int i = 0; i < 2; i++) {
+                    JasperReport jasperReport3 = (JasperReport)JRLoader.loadObject(jasperFile);
+                    Map<String, Object> params3 = new HashMap<>();
+                    params3.put("id", selectedMemo.getId());
+                    params3.put("registDate", selectedMemo.getRegistDate());
+                    params3.put("detail", selectedMemo.getDetail());
+
+                    // 個票の場合はJREmptyDataSource()を入れる。
+                    JasperPrint pdf3 = JasperFillManager.fillReport(jasperReport3, params3, new JREmptyDataSource());
+                    pdf3.getPages().forEach(page -> pdf.addPage(page));
+
+                    JasperReport jasperReport4 = (JasperReport)JRLoader.loadObject(jasperFile2);
+                    Map<String, Object> params4 = new HashMap<>();
+                    params4.put("userName", loginSession.getName());
+                    JasperPrint pdf4 = JasperFillManager.fillReport(jasperReport4, params4, new JREmptyDataSource());
+                    pdf4.getPages().forEach(page -> pdf.addPage(page));
+                }
+                
+                // 結合した場合、ページ数が正しく表示されないので、プログラムでページ数を求めるのがよさそう。
+                
+                // 帳票の出力
+                byte[] bytes = JasperExportManager.exportReportToPdf(pdf);
+                downloadFile = DefaultStreamedContent.builder()
+                            .name("メモ.pdf")
                             .contentType("application/pdf")
                             .stream(() -> new ByteArrayInputStream(bytes))
                             .build();

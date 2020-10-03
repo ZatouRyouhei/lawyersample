@@ -15,7 +15,7 @@
             </ui:define>
             
             <ui:define name="contentEach">
-                <h:form prependId="false" id="id_b0020_form">
+                <h:form prependId="false" id="id_b0020_form" enctype="multipart/form-data">
                     <p:messages id="id_b0020_msg" closable="true" globalOnly="true"/>
                     <h:panelGrid id="id_panel" columns="3" cellpadding="5">
                         <p:outputLabel for="id_sentence" value="文章" />
@@ -25,9 +25,17 @@
                         <p:outputLabel for="id_others" value="その他"/>
                         <p:inputText id="id_others" required="true" value="#{b0020.others}"/>
                         <p:message for="id_others" />
+                        
+                        <!-- mode="advanced"を使用する場合は、アップロードするファイルの数だけhandleFileUploadが実行される。
+                        <p:fileUpload id="id_file" mode="advanced" dragDropSupport="true" listener="#{b0020.handleFileUpload}"/>
+                        -->
+                        
+                        <!-- mode="simple" を使用する場合は、ボタンに、ajax="false"の設定が必要 -->
+                        <p:fileUpload id="id_file" mode="simple" skinSimple="true" value="#{b0020.files}" multiple="true"/>
+                        
                     </h:panelGrid>
                     <div id="id_b0020_btn">
-                        <p:commandButton value="登録" action="#{b0020.regist()}" update="id_b0020_form" icon="pi pi-pencil" />
+                        <p:commandButton value="登録" action="#{b0020.regist()}" update="id_b0020_form" icon="pi pi-pencil" ajax="false"/>
                     </div>
                 </h:form>
                 

@@ -52,7 +52,7 @@
                         <p:commandButton id="dynaButton" type="button" icon="pi pi-user" class="userIcon"/>
                         <p:menu overlay="true" trigger="dynaButton" my="left top" at="left bottom">
                             <p:submenu label="#{loginSession.name}さん">
-                                <p:menuitem value="パスワード変更" onclick="PF('passwordDlg').show();" icon="pi pi-pencil"/>
+                                <p:menuitem value="パスワード変更" onclick="PF('passwordDlg').show();" icon="pi pi-pencil" update="id_change_password_form" resetValues="true"/>
                                 <p:menuitem value="ログアウト" action="#{a0010.logout()}" icon="pi pi-sign-out"/>
                             </p:submenu>
                         </p:menu>
@@ -79,16 +79,16 @@
                 <!-- メニュー -->
                 <nav>
                     <h:form id="id_menu_form">
-                        <p:menu style="width:200px">
-                            <p:submenu label="メニュー" expanded="true">
+                        <p:panelMenu style="width:200px">
+                            <p:submenu label="メニュー">
                                 <p:menuitem value="B0010" outcome="/b/b0010" icon="pi pi-save" ajax="false"/>
                                 <p:menuitem value="B0020" outcome="/b/b0020" icon="pi pi-refresh" ajax="false"/>
                             </p:submenu>
-                            <p:submenu label="メニュー２" expanded="true">
+                            <p:submenu label="メニュー２">
                                 <p:menuitem value="メニュー１" icon="pi pi-save" />
                                 <p:menuitem value="メニュー２" icon="pi pi-refresh" />
                             </p:submenu>
-                        </p:menu>
+                        </p:panelMenu>
                     </h:form>
                     
                     <!--

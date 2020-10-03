@@ -12,7 +12,7 @@
     display: grid;
     grid-template-rows:
         [row1] 80px
-        [row2] 300px
+        [row2] 400px
         [row3] auto;
     grid-row-gap: 20px;
     row-gap: 20px;

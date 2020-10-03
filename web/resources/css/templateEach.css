@@ -57,15 +57,6 @@ nav {
     grid-row: main / span 1;
 }
 
-body nav .ui-menu .ui-menu-list .ui-widget-header {
-    background-color: #007ad9;
-    border: 1px solid #007ad9;
-}
-
-body nav .ui-menu .ui-menu-list .ui-widget-header h3 {
-    color: #ffffff;
-}
-
 /*
 #id_munu_ul {
     list-style-type: none;

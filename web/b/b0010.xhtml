@@ -44,7 +44,8 @@
                         </p:commandButton>
                     </div>
                     <div id="id_new_btn">
-                        <p:commandButton value="新規" type="button" onclick="PF('newDialog').show();" icon="pi pi-plus"/>
+                        <!-- ダイアログを開いたときに内容をリセットする。 -->
+                        <p:commandButton value="新規" onclick="PF('newDialog').show();" icon="pi pi-plus" action="#{b0010.closeDlg()}" update="id_b0010_new_form" resetValues="true" />
                     </div>
                     <div id="id_search_table">
                         <p:dataTable var="memo"
@@ -55,7 +56,8 @@
                                     currentPageReportTemplate="{totalRecords} 件"
                                     selectionMode="single"
                                     selection="#{b0010.selectedMemo}"
-                                    rowKey="#{memo.id}">
+                                    rowKey="#{memo.id}"
+                                    emptyMessage="該当データはありません。">
                             <!-- 直前に開いたダイアログでバリデーションエラーの情報をリセットするため、resetValues="true"をつける -->
                             <p:ajax event="rowSelect" oncomplete="PF('updateDialog').show()" update="id_b0010_detail_form" resetValues="true"/>
                            <p:column headerText="ID">
@@ -96,13 +98,16 @@
                         </h:panelGrid>
                         <p:commandButton action="#{b0010.update()}" value="変更" update="id_b0010_detail_form id_b0010_form" icon="pi pi-pencil" style="margin-right: 40px; margin-top: 20px;"/>
                         <!-- 変更時のバリデーションが動かないようにprocess="@this"をつける -->
-                        <p:commandButton action="#{b0010.delete()}" value="削除" update="id_b0010_detail_form id_b0010_form" icon="pi pi-times" class="deleteBtn" process="@this">
+                        <p:commandButton action="#{b0010.delete()}" value="削除" update="id_b0010_detail_form id_b0010_form" icon="pi pi-times" class="deleteBtn" process="@this" style="margin-right: 40px;">
                             <p:confirm header="確認" message="削除しますか？" icon="pi pi-exclamation-triangle" />
                         </p:commandButton>
                         <p:confirmDialog global="true" showEffect="fade">
                             <p:commandButton value="はい" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
                             <p:commandButton value="いいえ" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" />
                         </p:confirmDialog>
+                        <p:commandButton value="PDF" icon="pi pi-file-pdf" class="downloadBtn" ajax="false" onclick="PrimeFaces.monitorDownload(loadStart, loadEnd);">
+                            <p:fileDownload value="#{b0010.detailPdfDownload}" />
+                        </p:commandButton>
                     </h:form>
                 </p:dialog>
                 
@@ -128,6 +133,7 @@
                             <p:message for="id_registdate" />
                         </h:panelGrid>
                         <p:commandButton action="#{b0010.regist()}" value="登録" update="id_b0010_new_form id_b0010_form" icon="pi pi-plus" style="margin-right: 40px; margin-top: 20px;"/>
+                        <!-- p:resetInputの代わりに、 resetValues="true" を入れても同じと思われる。-->
                         <p:commandButton value="クリア" update="id_b0010_new_form" process="@this" action="#{b0010.closeDlg()}" class="normalBtn">
                             <p:resetInput target="id_b0010_new_form" />
                         </p:commandButton>
