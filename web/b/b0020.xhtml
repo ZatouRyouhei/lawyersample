@@ -15,7 +15,7 @@
             </ui:define>
             
             <ui:define name="contentEach">
-                <h:form prependId="false" id="id_b0020_form" enctype="multipart/form-data">
+                <h:form prependId="false" id="id_b0020_form">
                     <p:messages id="id_b0020_msg" closable="true" globalOnly="true"/>
                     <h:panelGrid id="id_panel" columns="3" cellpadding="5">
                         <p:outputLabel for="id_sentence" value="文章" />
@@ -26,17 +26,56 @@
                         <p:inputText id="id_others" required="true" value="#{b0020.others}"/>
                         <p:message for="id_others" />
                         
-                        <!-- mode="advanced"を使用する場合は、アップロードするファイルの数だけhandleFileUploadが実行される。
-                        <p:fileUpload id="id_file" mode="advanced" dragDropSupport="true" listener="#{b0020.handleFileUpload}"/>
-                        -->
-                        
-                        <!-- mode="simple" を使用する場合は、ボタンに、ajax="false"の設定が必要 -->
+                        <!-- サブミットボタンでアップロードする場合は、mode="simple"とする。-->
+                        <!-- mode="simple" を使用する場合は、ボタンに、ajax="false"の設定が必要
                         <p:fileUpload id="id_file" mode="simple" skinSimple="true" value="#{b0020.files}" multiple="true"/>
-                        
+                        -->
                     </h:panelGrid>
                     <div id="id_b0020_btn">
-                        <p:commandButton value="登録" action="#{b0020.regist()}" update="id_b0020_form" icon="pi pi-pencil" ajax="false"/>
+                        <p:commandButton value="登録" action="#{b0020.regist()}" update="id_b0020_form" icon="pi pi-pencil"/>
                     </div>
+                </h:form>
+                
+                <h:form id="id_b0020_file_upload" enctype="multipart/form-data">
+                    <!-- mode="advanced"を使用する場合は、アップロードするファイルの数だけhandleFileUploadが実行される。-->
+                    <p:fileUpload id="id_file" 
+                                  mode="advanced" 
+                                  dragDropSupport="true" 
+                                  listener="#{b0020.handleFileUpload}" 
+                                  uploadLabel="アップロード" 
+                                  cancelLabel="キャンセル" 
+                                  label="ファイル選択" 
+                                  update="growl id_b0020_file_download"/>
+                </h:form>
+                
+                <h:form id="id_b0020_file_download">
+                    <p:dataTable var="file" value="#{b0020.uploadFileList}" scrollable="true" scrollHeight="200" rowHover="true">
+                        <p:column headerText="ファイル名">
+                            <h:outputText value="#{file.name}"/>
+                        </p:column>
+                        <p:column headerText="サイズ">
+                            <h:outputText value="#{file.sizeStr}"/>
+                        </p:column>
+                        <p:column style="width:32px;text-align: center">
+                            <p:commandButton icon="pi pi-download" class="downloadBtn" ajax="false" onclick="PrimeFaces.monitorDownload(loadStart, loadEnd);">
+                                <f:setPropertyActionListener value="#{file.name}" target="#{b0020.downloadFileName}"/>
+                                <p:fileDownload value="#{b0020.downloadFile}" />
+                            </p:commandButton>
+                        </p:column>
+                        <p:column style="width:32px;text-align: center">
+                            <p:commandButton icon="pi pi-trash" class="deleteBtn" action="#{b0020.deleteFile()}" update="id_b0020_file_download growl" process="@this">
+                                <p:confirm header="確認" message="#{file.name}を削除しますか？" icon="pi pi-exclamation-triangle" />
+                                <f:setPropertyActionListener value="#{file.name}" target="#{b0020.downloadFileName}"/>
+                            </p:commandButton>
+                            <p:confirmDialog global="true" showEffect="fade">
+                                <p:commandButton value="はい" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+                                <p:commandButton value="いいえ" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+                            </p:confirmDialog>
+                        </p:column>
+                        <f:facet name="footer">
+                            #{b0020.uploadFileList.size()} ファイル
+                        </f:facet>
+                    </p:dataTable>
                 </h:form>
                 
                 <div id="id_template_btn">

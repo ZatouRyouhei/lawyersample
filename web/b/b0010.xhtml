@@ -77,7 +77,6 @@
                 
                 <p:dialog header="メモ編集" widgetVar="updateDialog" modal="true" showEffect="fade" resizable="false"  height="300" width="500">
                     <h:form id="id_b0010_detail_form">
-                        <p:messages id="change_memo_msg" closable="true" globalOnly="true"/>
                         <h:panelGrid id="grid" columns="3" cellpadding="5">
                             ID<h:outputText value="#{b0010.selectedMemo.id}"/><span></span>
                             <p:outputLabel for="id_detail" value="メモ" />
@@ -96,9 +95,9 @@
                                           yearNavigator="true"/>
                             <p:message for="id_registdate" />
                         </h:panelGrid>
-                        <p:commandButton action="#{b0010.update()}" value="変更" update="id_b0010_detail_form id_b0010_form" icon="pi pi-pencil" style="margin-right: 40px; margin-top: 20px;"/>
+                        <p:commandButton action="#{b0010.update()}" value="変更" update="id_b0010_detail_form id_b0010_form growl" icon="pi pi-pencil" style="margin-right: 40px; margin-top: 20px;"/>
                         <!-- 変更時のバリデーションが動かないようにprocess="@this"をつける -->
-                        <p:commandButton action="#{b0010.delete()}" value="削除" update="id_b0010_detail_form id_b0010_form" icon="pi pi-times" class="deleteBtn" process="@this" style="margin-right: 40px;">
+                        <p:commandButton action="#{b0010.delete()}" value="削除" update="id_b0010_detail_form id_b0010_form  growl" icon="pi pi-times" class="deleteBtn" process="@this" style="margin-right: 40px;" oncomplete="PF('updateDialog').hide();">
                             <p:confirm header="確認" message="削除しますか？" icon="pi pi-exclamation-triangle" />
                         </p:commandButton>
                         <p:confirmDialog global="true" showEffect="fade">

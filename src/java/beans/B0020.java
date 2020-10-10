@@ -1,20 +1,31 @@
 package beans;
 
 import db.SentenceDb;
+import dto.UploadFile;
 import entity.Sentence;
 import entity.SentenceKey;
 import java.io.BufferedOutputStream;
+import java.io.ByteArrayInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 import org.primefaces.model.file.UploadedFile;
 import org.primefaces.model.file.UploadedFiles;
 
@@ -30,6 +41,10 @@ public class B0020 extends SuperBb implements Serializable {
     private String sentence;
     private String others;
     private UploadedFiles files;
+    
+    private String downloadFileName;
+    // ファイルダウンロード用
+    private StreamedContent downloadFile;
     
     // 文章サブリストのプルダウン
     private Map<String, Integer> sentenceItems;
@@ -90,6 +105,60 @@ public class B0020 extends SuperBb implements Serializable {
             } catch (IOException ex) {
             }
         }
+        addMessage(FacesMessage.SEVERITY_INFO, "登録しました。");
+    }
+    
+    public List<UploadFile> getUploadFileList() {
+        List<UploadFile> fileList = new ArrayList<>();
+        try {
+            Path path = Paths.get("C:/lawyersample/");
+            if (Files.exists(path)) {
+                Files.list(path).forEach(file -> {
+                    try {
+                        UploadFile uploadFile = new UploadFile(file.getFileName().toString(), Files.size(file));
+                        fileList.add(uploadFile);
+                    } catch (IOException ex) {
+                    }
+                });
+            }
+        } catch (IOException ex) {
+        }
+        return fileList;
+    }
+    
+    /**
+     * ファイルダウンロード
+     * @return 
+     */
+    public StreamedContent getDownloadFile() {
+        Path path = Paths.get("C:/lawyersample/", downloadFileName);
+        if (Files.exists(path)) {
+            try {
+                byte[] bytes = Files.readAllBytes(path);
+                downloadFile = DefaultStreamedContent.builder()
+                        .name(downloadFileName)
+                        .contentType("application/octet-stream")
+                        .stream(() -> new ByteArrayInputStream(bytes))
+                        .build();
+                return downloadFile;
+            } catch (IOException ex) {
+            }
+        }
+        return null;
+    }
+    
+    /**
+     * ファイル削除
+     * @return 
+     */
+    public String deleteFile() {
+        Path path = Paths.get("C:/lawyersample/", downloadFileName);
+        try {
+            Files.deleteIfExists(path);
+            addMessage(FacesMessage.SEVERITY_INFO, "削除しました。");
+        } catch (IOException ex) {
+        }
+        return "";
     }
 
     public Integer getSentenceType() {
@@ -138,5 +207,13 @@ public class B0020 extends SuperBb implements Serializable {
 
     public void setFiles(UploadedFiles files) {
         this.files = files;
+    }
+
+    public String getDownloadFileName() {
+        return downloadFileName;
+    }
+
+    public void setDownloadFileName(String downloadFileName) {
+        this.downloadFileName = downloadFileName;
     }
 }
