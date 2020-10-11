@@ -17,6 +17,13 @@
                     return event.which !== 13;
                 });
             });
+            
+            function loadStart() {
+                $("#loading").show();
+            }
+            function loadEnd() {
+                $("#loading").hide();
+            }
         </script>
     </h:head>
     <h:body>
@@ -31,6 +38,11 @@
             <h:outputText value="再度ログインページからログインしてください。" /><br/>
             <p:link outcome="/index" value="ログインページへ"/>
         </p:dialog>
+        
+        <!-- ローディング -->
+        <div id="load_icon">
+            <i class="pi pi-spin pi-spinner" style="font-size: 6em; display: none;" id="loading"></i>
+        </div>
     </h:body>
 </html>
 

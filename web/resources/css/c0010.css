@@ -1,0 +1,44 @@
+@charset "UTF-8";
+
+#id_c0010_form {
+    display: grid;
+    grid-template-columns: 230px 390px 1fr;
+    grid-template-rows:
+        [head] 80px
+        [table] auto;
+    grid-row-gap: 20px;
+    row-gap: 20px;
+    grid-column-gap: 20px;
+    column-gap: 20px;
+}
+
+#id_c0010_detail {
+    grid-column: 1 / 2;
+    grid-row: head / span 1;
+    align-self: center;
+}
+
+#id_c0010_registdate {
+    grid-column: 2 / 3;
+    grid-row: head / span 1;
+    justify-self: start;
+    align-self: center;
+}
+
+#id_search_btn {
+    grid-column: 3 / 4;
+    grid-row: head / span 1;
+    align-self: center;
+}
+
+#id_new_btn {
+    grid-column: 4 / 5;
+    grid-row: head / span 1;
+    justify-self: end;
+    align-self: center;
+}
+
+#id_search_table {
+    grid-column: 1 / -1;
+    grid-row: table / span 1;
+}

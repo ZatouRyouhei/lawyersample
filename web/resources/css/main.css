@@ -18,6 +18,12 @@ body {
     background-color: #f5f5f5;
 }
 
+#load_icon {
+    position: fixed;
+    right: 10px;
+    bottom: 10px;
+}
+
 .ui-button.deleteBtn {
     background-color: #cd5c5c;
     border: 1px solid #cd5c5c;

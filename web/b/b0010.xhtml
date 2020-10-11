@@ -97,7 +97,7 @@
                         </h:panelGrid>
                         <p:commandButton action="#{b0010.update()}" value="変更" update="id_b0010_detail_form id_b0010_form growl" icon="pi pi-pencil" style="margin-right: 40px; margin-top: 20px;"/>
                         <!-- 変更時のバリデーションが動かないようにprocess="@this"をつける -->
-                        <p:commandButton action="#{b0010.delete()}" value="削除" update="id_b0010_detail_form id_b0010_form  growl" icon="pi pi-times" class="deleteBtn" process="@this" style="margin-right: 40px;" oncomplete="PF('updateDialog').hide();">
+                        <p:commandButton action="#{b0010.delete()}" value="削除" update="id_b0010_detail_form id_b0010_form  growl" icon="pi pi-trash" class="deleteBtn" process="@this" style="margin-right: 40px;" oncomplete="PF('updateDialog').hide();">
                             <p:confirm header="確認" message="削除しますか？" icon="pi pi-exclamation-triangle" />
                         </p:commandButton>
                         <p:confirmDialog global="true" showEffect="fade">

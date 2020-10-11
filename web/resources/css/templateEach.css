@@ -5,8 +5,7 @@ body {
     grid-template-columns: 20px 230px 1fr 20px;
     grid-template-rows:
         [head] 60px
-        [main] 650px
-        [foot] 80px;
+        [main] 700px;
     grid-row-gap: 40px;
     row-gap: 40px;
     grid-column-gap: 20px;
@@ -24,13 +23,6 @@ header {
 header h2 {
     margin-top: 10px;
     margin-left:110px;
-}
-
-footer {
-    grid-column: 3 / 4;
-    grid-row: foot / span 1;
-    justify-self: end;
-    align-self: center;
 }
 
 #id_title_logo {

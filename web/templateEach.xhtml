@@ -12,13 +12,6 @@
             <ui:define name="head">
                 <h:outputStylesheet library="css" name="templateEach.css"/>
                 <script>
-                    function loadStart() {
-                        $("#loading").show();
-                    }
-                    function loadEnd() {
-                        $("#loading").hide();
-                    }
-                    
                     PrimeFaces.locales['ja'] = {
                         closeText: '閉じる',
                         prevText: '前',
@@ -103,11 +96,6 @@
                 <div id="container">
                     <ui:insert name="contentEach"/>
                 </div>
-                
-                <!-- ローディング -->
-                <footer>
-                    <i class="pi pi-spin pi-spinner" style="font-size: 6em; display: none;" id="loading"></i>
-                </footer>
             </ui:define>
         </ui:composition>
     </h:body>
