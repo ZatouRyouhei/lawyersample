@@ -35,7 +35,7 @@
                                 <p:password id="id_password" value="#{a0010.password}" class="allow_submit" size="40"/>
                                 <p:outputLabel for="@previous" value="パスワード" />
                             </span>
-                            <p:commandButton action="#{a0010.login()}" value="ログイン" onstart="loadStart()" oncomplete="loadEnd()" update="id_form" icon="pi pi-sign-in" style="width:256px;"/>
+                            <p:commandButton action="#{a0010.login()}" value="ログイン" update="id_form" icon="pi pi-sign-in" style="width:256px;"/>
                         </div>
                     </h:form>
                 </section>
