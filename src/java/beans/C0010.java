@@ -1,7 +1,9 @@
 package beans;
 
 import db.MemoDb;
+import db.UserDb;
 import entity.Memo;
+import entity.User;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.Serializable;
@@ -9,6 +11,7 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
@@ -32,8 +35,11 @@ import org.primefaces.model.StreamedContent;
 public class C0010 extends SuperBb implements Serializable {
     @Inject
     MemoDb memoDb;
+    @Inject
+    UserDb userDb;
     
     // 検索用
+    private List<Memo> memoList;
     private String searchDetail;
     private List<LocalDate> searchRegistDate;
 
@@ -42,9 +48,20 @@ public class C0010 extends SuperBb implements Serializable {
     private Memo selectedMemo;
     private List<Memo> selectedMemos;
     
+    // 新規登録用
+    private String detail;
+    private LocalDate registDate;
+    
     // ファイルダウンロード用
     private StreamedContent downloadFile;
 
+    @PostConstruct
+    public void init() {
+        searchDetail = "";
+        searchRegistDate = null;
+        memoList = memoDb.searchMemo(searchDetail, searchRegistDate);
+    }
+    
     public StreamedContent getPdfDownloadFile() {
         String formPath = getRealPath("resources/form/template.jasper");
         File jasperFile = new File(formPath);
@@ -70,28 +87,49 @@ public class C0010 extends SuperBb implements Serializable {
         return null;
     }
     
+    /**
+     * 検索処理
+     * @return 
+     */
     public String search() {
         disabaledFlg = true;
+        memoList = memoDb.searchMemo(searchDetail, searchRegistDate);
         return "";
     }
     
+    /**
+     * 検索結果をクリア
+     * @return 
+     */
     public String clearSearch() {
-        searchDetail = null;
+        searchDetail = "";
         searchRegistDate = null;
         disabaledFlg = false;
         selectedMemos = null;
+        // 再検索
+        memoList = memoDb.searchMemo(searchDetail, searchRegistDate);
         return "";
     }
     
+    /**
+     * 更新処理
+     * @return 
+     */
     public String update() {
         Memo memo = memoDb.search(selectedMemo.getId());
         memo.setDetail(selectedMemo.getDetail());
         memo.setRegistDate(selectedMemo.getRegistDate());
         memoDb.update(memo);
         addMessage(FacesMessage.SEVERITY_INFO, "変更しました。");
+        // 一覧に反映させるため再検索
+        memoList = memoDb.searchMemo(searchDetail, searchRegistDate);
         return "";
     }
     
+    /**
+     * チェックボックスをクリア
+     * @return 
+     */
     public String clearCheck() {
         selectedMemos = null;
         return "";
@@ -114,9 +152,14 @@ public class C0010 extends SuperBb implements Serializable {
     }
     
     public List<Memo> getMemoList() {
-        return memoDb.searchMemo(searchDetail, searchRegistDate);
+        //return memoDb.searchMemo(searchDetail, searchRegistDate);
+        return memoList;
     }
 
+    public void setMemoList(List<Memo> memoList) {
+        this.memoList = memoList;
+    }
+    
     public String getSearchDetail() {
         return searchDetail;
     }
@@ -139,5 +182,21 @@ public class C0010 extends SuperBb implements Serializable {
 
     public void setDisabaledFlg(boolean disabaledFlg) {
         this.disabaledFlg = disabaledFlg;
+    }
+
+    public String getDetail() {
+        return detail;
+    }
+
+    public void setDetail(String detail) {
+        this.detail = detail;
+    }
+
+    public LocalDate getRegistDate() {
+        return registDate;
+    }
+
+    public void setRegistDate(LocalDate registDate) {
+        this.registDate = registDate;
     }
 }

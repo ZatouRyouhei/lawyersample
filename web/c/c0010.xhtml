@@ -52,15 +52,17 @@
                                     selection="#{c0010.selectedMemos}"
                                     rowKey="#{memo.id}"
                                     rowSelectMode="add"
+                                    sortBy="${memo.registDate}"
+                                    sortOrder="descending"
                                     emptyMessage="該当データはありません。">
                             <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
-                            <p:column headerText="ID">
+                            <p:column headerText="ID" sortBy="${memo.id}">
                                 <h:outputText value="#{memo.id}"/>
                             </p:column>
                             <p:column headerText="メモ">
                                 <h:outputText value="#{memo.detail}"/>
                             </p:column>
-                            <p:column headerText="日付">
+                            <p:column headerText="日付" sortBy="${memo.registDate}">
                                 <h:outputText value="#{memo.registDate}">
                                     <f:convertDateTime pattern="yyyy年M月d日" type="localDate"/>
                                 </h:outputText>
@@ -79,7 +81,6 @@
                 
                 <p:dialog header="メモ編集" widgetVar="updateDialog" modal="true" showEffect="fade" resizable="false"  height="300" width="500">
                     <h:form id="id_c0010_detail_form">
-                        <p:messages id="change_memo_msg" closable="true" globalOnly="true"/>
                         <h:panelGrid id="grid" columns="3" cellpadding="5">
                             ID<h:outputText value="#{c0010.selectedMemo.id}"/><span></span>
                             <p:outputLabel for="id_detail" value="メモ" />
