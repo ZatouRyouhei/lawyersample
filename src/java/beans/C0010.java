@@ -3,7 +3,6 @@ package beans;
 import db.MemoDb;
 import db.UserDb;
 import entity.Memo;
-import entity.User;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.Serializable;

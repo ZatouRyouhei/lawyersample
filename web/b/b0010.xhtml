@@ -80,7 +80,8 @@
                         <h:panelGrid id="grid" columns="3" cellpadding="5">
                             ID<h:outputText value="#{b0010.selectedMemo.id}"/><span></span>
                             <p:outputLabel for="id_detail" value="メモ" />
-                            <p:inputText id="id_detail" value="#{b0010.selectedMemo.detail}" required="true" maxlength="#{memoSize.detailSize}"/>
+                            <!-- 一時保存の時は必須チェックはしない。 -->
+                            <p:inputText id="id_detail" value="#{b0010.selectedMemo.detail}" required="#{param['id_b0010_detail_form:detail_save']==null}" maxlength="#{memoSize.detailSize}"/>
                             <p:message for="id_detail" />
                             
                             <p:outputLabel for="id_registdate" value="登録日" />
@@ -95,7 +96,8 @@
                                           yearNavigator="true"/>
                             <p:message for="id_registdate" />
                         </h:panelGrid>
-                        <p:commandButton action="#{b0010.update()}" value="変更" update="id_b0010_detail_form id_b0010_form growl" icon="pi pi-pencil" style="margin-right: 40px; margin-top: 20px;"/>
+                        <p:commandButton id="detail_submit" action="#{b0010.update()}" value="変更" update="id_b0010_detail_form id_b0010_form growl" icon="pi pi-pencil" style="margin-right: 40px; margin-top: 20px;"/>
+                        <p:commandButton id ="detail_save" action="#{b0010.update()}" value="一時保存" update="id_b0010_detail_form id_b0010_form growl" icon="pi pi-pencil" style="margin-right: 40px; margin-top: 20px;"/>
                         <!-- 変更時のバリデーションが動かないようにprocess="@this"をつける -->
                         <p:commandButton action="#{b0010.delete()}" value="削除" update="id_b0010_detail_form id_b0010_form  growl" icon="pi pi-trash" class="deleteBtn" process="@this" style="margin-right: 40px;" oncomplete="PF('updateDialog').hide();">
                             <p:confirm header="確認" message="削除しますか？" icon="pi pi-exclamation-triangle" />
@@ -116,7 +118,8 @@
                         <p:messages id="new_memo_msg" closable="true" globalOnly="true"/>
                         <h:panelGrid id="grid" columns="3" cellpadding="5">
                             <p:outputLabel for="id_detail" value="メモ" />
-                            <p:inputText id="id_detail" value="#{b0010.detail}" required="true" maxlength="#{memoSize.detailSize}"/>
+                            <!-- 一時保存の時は必須チェックはしない。 -->
+                            <p:inputText id="id_detail" value="#{b0010.detail}" required="#{param['id_b0010_new_form:save']==null}" maxlength="#{memoSize.detailSize}"/>
                             <p:message for="id_detail" />
                             
                             <p:outputLabel for="id_registdate" value="登録日" />
@@ -131,7 +134,8 @@
                                           yearNavigator="true"/>
                             <p:message for="id_registdate" />
                         </h:panelGrid>
-                        <p:commandButton action="#{b0010.regist()}" value="登録" update="id_b0010_new_form id_b0010_form" icon="pi pi-plus" style="margin-right: 40px; margin-top: 20px;"/>
+                        <p:commandButton id="submit" action="#{b0010.regist()}" value="登録" update="id_b0010_new_form id_b0010_form" icon="pi pi-plus" style="margin-right: 40px; margin-top: 20px;"/>
+                        <p:commandButton id="save" action="#{b0010.regist()}" value="一時保存" update="id_b0010_new_form id_b0010_form" icon="pi pi-plus" style="margin-right: 40px; margin-top: 20px;"/>
                         <!-- p:resetInputの代わりに、 resetValues="true" を入れても同じと思われる。-->
                         <p:commandButton value="クリア" update="id_b0010_new_form" process="@this" action="#{b0010.closeDlg()}" class="normalBtn">
                             <p:resetInput target="id_b0010_new_form" />

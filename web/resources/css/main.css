@@ -31,7 +31,6 @@ body {
 .ui-button.ui-state-focus.deleteBtn {
     background-color: #cd5c5c;
     border: 1px solid #cd5c5c;
-    outline: none;
 }
 
 .ui-button.deleteBtn:hover {
@@ -46,7 +45,6 @@ body {
 .ui-button.ui-state-focus.downloadBtn {
     background-color: #228b22;
     border: 1px solid #228b22;
-    outline: none;
 }
 
 .ui-button.downloadBtn:hover {
@@ -61,7 +59,6 @@ body {
 .ui-button.ui-state-focus.normalBtn {
     background-color: #a0a0a0;
     border: 1px solid #a0a0a0;
-    outline: none;
 }
 
 .ui-button.normalBtn:hover {
