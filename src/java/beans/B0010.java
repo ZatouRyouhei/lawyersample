@@ -7,7 +7,10 @@ import entity.User;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.time.LocalDate;
@@ -267,6 +270,10 @@ public class B0010 extends SuperBb implements Serializable {
                 JasperReport jasperReport = (JasperReport)JRLoader.loadObject(jasperFile);
                 Map<String, Object> params = new HashMap<>();
                 params.put("userName", loginSession.getName());
+                // 画像表示
+                String imgPath = getRealPath("resources/img/inkan.png");
+                InputStream imgSrc = new FileInputStream(imgPath);
+                params.put("reportImage", imgSrc);
                 List<Memo> memoList = memoDb.searchMemo(searchDetail, searchRegistDate);
                 JasperPrint pdf = JasperFillManager.fillReport(jasperReport, params, new JRBeanCollectionDataSource(memoList));
                 
@@ -278,7 +285,7 @@ public class B0010 extends SuperBb implements Serializable {
                             .stream(() -> new ByteArrayInputStream(bytes))
                             .build();
                 return downloadFile;
-            } catch (JRException ex) {
+            } catch (JRException | FileNotFoundException ex) {
                 ex.printStackTrace();
             }
         }
