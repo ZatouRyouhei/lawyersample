@@ -1,0 +1,14 @@
+@charset "UTF-8";
+
+#pdfContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+#leftPdf {
+    grid-column: 1 / 2;
+}
+
+#rightPdf {
+    grid-column: 2 / 3;
+}

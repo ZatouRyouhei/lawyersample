@@ -17,8 +17,8 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
-import javax.faces.view.ViewScoped;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -48,7 +48,8 @@ import org.primefaces.model.StreamedContent;
  * @author ryouhei
  */
 @Named
-@ViewScoped
+// 別タブでPDF表示をするためにSessionScopedにする。
+@SessionScoped
 public class B0010 extends SuperBb implements Serializable {
     
     @Inject

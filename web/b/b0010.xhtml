@@ -42,6 +42,8 @@
                         <p:commandButton value="PDF" icon="pi pi-file-pdf" class="downloadBtn" ajax="false" onclick="PrimeFaces.monitorDownload(loadStart, loadEnd);">
                             <p:fileDownload value="#{b0010.pdfDownloadFile}" />
                         </p:commandButton>
+                        
+                        <p:button value="PDF別タブ" outcome="/templatePdf" target="_blank" icon="pi pi-file-pdf" class="downloadBtn" style="margin-right: 40px;"/>
                     </div>
                     <div id="id_new_btn">
                         <!-- ダイアログを開いたときに内容をリセットする。 -->
@@ -142,7 +144,6 @@
                         </p:commandButton>
                     </h:form>
                 </p:dialog>
-                
             </ui:define>
         </ui:composition>
     </h:body>
