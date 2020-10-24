@@ -5,13 +5,18 @@
 	src: url(/lawyersample/faces/resources/font/GenJyuuGothic-Regular.ttf);
 }
 
+@font-face {
+	font-family: 'gaizi';
+	src: url(/lawyersample/faces/resources/font/FEJNGOT4.woff) format('woff');
+}
+
 * {
     margin: 0;
-    font-family: 'MyFont', sans-serif;
+    font-family: 'gaizi', 'MyFont', sans-serif;
 }
 
 body .ui-widget:not(.pi), body .ui-widget .ui-widget:not(.pi) {
-    font-family: 'MyFont', sans-serif;
+    font-family: 'gaizi', 'MyFont', sans-serif;
 }
 
 body {
