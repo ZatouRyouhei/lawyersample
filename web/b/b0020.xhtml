@@ -45,6 +45,10 @@
                                   uploadLabel="アップロード" 
                                   cancelLabel="キャンセル" 
                                   label="ファイル選択" 
+                                  allowTypes="/\.pdf$/"
+                                  invalidFileMessage="PDF形式以外のファイルはアップロードできません。"
+                                  sizeLimit="50000000"
+                                  invalidSizeMessage="サイズが50MB以上のファイルはアップロードできません。"
                                   update="growl id_b0020_file_download"/>
                 </h:form>
                 
@@ -57,13 +61,13 @@
                             <h:outputText value="#{file.sizeStr}"/>
                         </p:column>
                         <p:column style="width:32px;text-align: center">
-                            <p:commandButton icon="pi pi-download" class="downloadBtn" ajax="false" onclick="PrimeFaces.monitorDownload(loadStart, loadEnd);">
+                            <p:commandButton icon="pi pi-download" class="downloadBtn" ajax="false" onclick="PrimeFaces.monitorDownload(loadStart, loadEnd);" title="ダウンロード">
                                 <f:setPropertyActionListener value="#{file.name}" target="#{b0020.downloadFileName}"/>
                                 <p:fileDownload value="#{b0020.downloadFile}" />
                             </p:commandButton>
                         </p:column>
                         <p:column style="width:32px;text-align: center">
-                            <p:commandButton icon="pi pi-trash" class="deleteBtn" action="#{b0020.deleteFile()}" update="id_b0020_file_download growl" process="@this">
+                            <p:commandButton icon="pi pi-trash" class="deleteBtn" action="#{b0020.deleteFile()}" update="id_b0020_file_download growl" process="@this" title="削除">
                                 <p:confirm header="確認" message="#{file.name}を削除しますか？" icon="pi pi-exclamation-triangle" />
                                 <f:setPropertyActionListener value="#{file.name}" target="#{b0020.downloadFileName}"/>
                             </p:commandButton>
@@ -86,7 +90,7 @@
                     <h:form id="id_b0020_template_form">
                         <h:panelGrid columns="3" cellpadding="5">
                             <p:outputLabel for="id_sentenceType" value="文章タイプ" />
-                            <p:selectOneMenu id="id_sentenceType" value="#{b0020.sentenceType}" effect="fold" effectSpeed="fast" >
+                            <p:selectOneMenu id="id_sentenceType" value="#{b0020.sentenceType}" effect="fade" effectSpeed="fast" >
                                 <f:selectItem itemLabel="--選択--" noSelectionOption="true"/>
                                 <f:selectItems value="#{sentenceType.items}"/>
                                 <p:ajax event="change" listener="#{b0020.createSentenceSubList()}" update="id_sentenceSubType"/>
@@ -94,7 +98,7 @@
                             <p:message for="id_sentenceType" />
                             
                             <p:outputLabel for="id_sentenceSubType" value="文章サブタイプ" />
-                            <p:selectOneMenu id="id_sentenceSubType" value="#{b0020.sentenceSubType}" effect="fold" effectSpeed="fast">
+                            <p:selectOneMenu id="id_sentenceSubType" value="#{b0020.sentenceSubType}" effect="fade" effectSpeed="fast">
                                 <f:selectItems value="#{b0020.sentenceItems}"/>
                             </p:selectOneMenu>
                             <p:message for="id_sentenceSubType" />
