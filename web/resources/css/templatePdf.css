@@ -1,8 +1,16 @@
 @charset "UTF-8";
 
+html {
+    height: 100%;
+}
+
+body {
+    height: 100%;
+}
 #pdfContainer {
     display: grid;
     grid-template-columns: 1fr 1fr;
+    height: 100%;
 }
 
 #leftPdf {

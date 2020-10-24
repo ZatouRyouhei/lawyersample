@@ -18,10 +18,6 @@ public class MemoDb extends TryCatchDb<Memo> {
     }
     
     public List<Memo> searchMemo(String detail, List<LocalDate> registDateRange) {
-        if (registDateRange != null && registDateRange.size() == 2) {
-            
-        }
-        
         StringBuilder query = new StringBuilder();
         query.append("SELECT m");
         query.append("  FROM Memo m");

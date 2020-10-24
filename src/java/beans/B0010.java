@@ -13,6 +13,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
@@ -32,6 +35,8 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.util.JRLoader;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.pdfbox.io.MemoryUsageSetting;
+import org.apache.pdfbox.multipdf.PDFMergerUtility;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
@@ -42,13 +47,14 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
+import org.primefaces.shaded.commons.io.FilenameUtils;
 
 /**
  *
  * @author ryouhei
  */
 @Named
-// 別タブでPDF表示をするためにSessionScopedにする。
+// 別タブでPDF表示をするためにViewScopedは使わずにSessionScopedにする。
 @SessionScoped
 public class B0010 extends SuperBb implements Serializable {
     
@@ -69,6 +75,8 @@ public class B0010 extends SuperBb implements Serializable {
     
     // ファイルダウンロード用
     private StreamedContent downloadFile;
+    
+    private StreamedContent downloadFile2;
     
     private final Logger logger = LogManager.getLogger();
     
@@ -289,6 +297,45 @@ public class B0010 extends SuperBb implements Serializable {
             } catch (JRException | FileNotFoundException ex) {
                 ex.printStackTrace();
             }
+        }
+        return null;
+    }
+    
+    public StreamedContent getPdfDownloadFile2() {
+        Path path = Paths.get("C:/lawyersample/");
+        if (Files.exists(path)) {
+            try {
+                PDFMergerUtility merger = new PDFMergerUtility();
+                Files.list(path)
+                        .filter(filePath -> FilenameUtils.getExtension(filePath.toString()).equals("pdf"))
+                        .sorted()
+                        .forEach(filePath -> {
+                            try {
+                                merger.addSource(new File(filePath.toString()));
+                            } catch (FileNotFoundException ex) {
+                            }
+                        });
+                merger.setDestinationFileName("C:/lawyersample/merge/merged.pdf");
+                merger.mergeDocuments(MemoryUsageSetting.setupTempFileOnly());
+                
+                Path downloadPath = Paths.get("C:/lawyersample/merge/merged.pdf");
+                if (Files.exists(downloadPath)) {
+                    try {
+                        byte[] bytes = Files.readAllBytes(downloadPath);
+                        downloadFile2 = DefaultStreamedContent.builder()
+                                .name("添付ファイル.pdf")
+                                .contentType("application/pdf")
+                                .stream(() -> new ByteArrayInputStream(bytes))
+                                .build();
+                        return downloadFile2;
+                    } catch (IOException ex) {
+                    } finally {
+                        Files.deleteIfExists(downloadPath);
+                    }
+                }
+            } catch (IOException ex) {
+            }
+            return null;
         }
         return null;
     }

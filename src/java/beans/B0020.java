@@ -115,8 +115,10 @@ public class B0020 extends SuperBb implements Serializable {
             if (Files.exists(path)) {
                 Files.list(path).forEach(file -> {
                     try {
-                        UploadFile uploadFile = new UploadFile(file.getFileName().toString(), Files.size(file));
-                        fileList.add(uploadFile);
+                        if (Files.isRegularFile(file)) {
+                            UploadFile uploadFile = new UploadFile(file.getFileName().toString(), Files.size(file));
+                            fileList.add(uploadFile);
+                        }
                     } catch (IOException ex) {
                     }
                 });
