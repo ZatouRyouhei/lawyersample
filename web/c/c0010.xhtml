@@ -54,6 +54,7 @@
                                     rowSelectMode="add"
                                     sortBy="${memo.registDate}"
                                     sortOrder="descending"
+                                    rowIndexVar="idx"
                                     emptyMessage="該当データはありません。">
                             <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
                             <p:column headerText="ID" sortBy="${memo.id}">
@@ -68,9 +69,7 @@
                                 </h:outputText>
                             </p:column>
                             <p:column style="width:32px;text-align: center">
-                                <p:commandButton update="id_c0010_detail_form" oncomplete="PF('updateDialog').show()" icon="pi pi-search" title="View" resetValues="true">
-                                    <f:setPropertyActionListener value="#{memo}" target="#{c0010.selectedMemo}" />
-                                </p:commandButton>
+                                <p:commandButton update="id_c0010_detail_form" action="#{c0010.viewMemo(idx)}" oncomplete="PF('updateDialog').show()" icon="pi pi-search" title="View" resetValues="true" />
                             </p:column>
                             <f:facet name="footer">
                                 全 #{c0010.memoList.size()} 件
@@ -100,6 +99,20 @@
                             <p:message for="id_registdate" />
                         </h:panelGrid>
                         <p:commandButton action="#{c0010.update()}" value="変更" update="id_c0010_detail_form id_c0010_form growl" icon="pi pi-pencil" style="margin-right: 40px; margin-top: 20px;"/>
+                        <p:commandButton update="id_c0010_detail_form"
+                                         process="@this"
+                                         action="#{c0010.viewMemo(c0010.selectedIdx - 1)}"
+                                         oncomplete="PF('updateDialog').hide(); PF('updateDialog').show();"
+                                         icon="pi pi-arrow-left"
+                                         resetValues="true" 
+                                         rendered="#{c0010.selectedIdx gt 0}" />
+                        <p:commandButton update="id_c0010_detail_form"
+                                         process="@this"
+                                         action="#{c0010.viewMemo(c0010.selectedIdx + 1)}"
+                                         oncomplete="PF('updateDialog').hide(); PF('updateDialog').show();"
+                                         icon="pi pi-arrow-right"
+                                         resetValues="true"
+                                         rendered="#{c0010.selectedIdx lt c0010.memoList.size() - 1}" />
                     </h:form>
                 </p:dialog>
             </ui:define>

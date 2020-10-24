@@ -48,6 +48,7 @@ public class C0010 extends SuperBb implements Serializable {
     private boolean disabaledFlg = false;
     
     private Memo selectedMemo;
+    private int selectedIdx;
     private List<Memo> selectedMemos;
     
     // 新規登録用
@@ -132,6 +133,12 @@ public class C0010 extends SuperBb implements Serializable {
         return "";
     }
     
+    public String viewMemo(int idx) {
+        selectedIdx = idx;
+        selectedMemo = memoList.get(idx);
+        return "";
+    }
+    
     /**
      * チェックボックスをクリア
      * @return 
@@ -147,6 +154,14 @@ public class C0010 extends SuperBb implements Serializable {
 
     public void setSelectedMemo(Memo selectedMemo) {
         this.selectedMemo = selectedMemo;
+    }
+
+    public int getSelectedIdx() {
+        return selectedIdx;
+    }
+
+    public void setSelectedIdx(int selectedIdx) {
+        this.selectedIdx = selectedIdx;
     }
     
     public List<Memo> getSelectedMemos() {
