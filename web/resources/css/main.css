@@ -1,10 +1,12 @@
 @charset "UTF-8";
 
+/* 源柔ゴシック */
 @font-face {
 	font-family: 'MyFont';
 	src: url(/lawyersample/faces/resources/font/GenJyuuGothic-Regular.ttf);
 }
 
+/* 外字 woffコンバータで外字tteファイルをwoffファイルに変換して使用する。 */
 @font-face {
 	font-family: 'gaizi';
 	src: url(/lawyersample/faces/resources/font/FEJNGOT4.woff) format('woff');

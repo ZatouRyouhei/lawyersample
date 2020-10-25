@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <fontFamilies>
+  <!-- 源ノ明朝 otfファイルをttrにリネームして使用する。 -->
   <fontFamily name="_Genmin">
     <normal>fonts/SourceHanSerif-Regular.ttf</normal>
     <pdfEncoding>Identity-H</pdfEncoding>
     <pdfEmbedded>true</pdfEmbedded>
   </fontFamily>
+  
+  <!-- 外字 tteファイルをttfにリネームして使用する。 -->
   <fontFamily name="_FEJNMIN4">
     <normal>fonts/FEJNMIN4.ttf</normal>
     <pdfEncoding>Identity-H</pdfEncoding>
