@@ -1,0 +1,25 @@
+@charset "UTF-8";
+
+body .fc {
+    width: 900px;
+}
+
+body .fc th {
+     background-color: #ffffff;
+}
+
+body .fc td {
+    background-color: #ffffff;
+}
+
+body .fc .fc-sun {
+    background-color: #fae6e3;
+}
+
+body .fc .fc-sat {
+    background-color: #dceef7;
+}
+
+body .fc td.fc-today {
+    background-color: #fcf8e3;
+}

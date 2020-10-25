@@ -76,6 +76,7 @@
                                 <p:menuitem value="B0010" outcome="/b/b0010" icon="pi pi-save" ajax="false" rendered="#{facesContext.externalContext.isUserInRole('ADMIN')}"/>
                                 <p:menuitem value="B0020" outcome="/b/b0020" icon="pi pi-refresh" ajax="false" rendered="#{facesContext.externalContext.isUserInRole('ADMIN')}"/>
                                 <p:menuitem value="C0010" outcome="/c/c0010" icon="pi pi-refresh" ajax="false" rendered="#{facesContext.externalContext.isUserInRole('STAFF')}"/>
+                                <p:menuitem value="C0020" outcome="/c/c0020" icon="pi pi-calendar" ajax="false" rendered="#{facesContext.externalContext.isUserInRole('STAFF')}"/>
                             </p:submenu>
                             <p:submenu label="メニュー２">
                                 <p:menuitem value="メニュー１" icon="pi pi-save" />
@@ -83,13 +84,6 @@
                             </p:submenu>
                         </p:panelMenu>
                     </h:form>
-                    
-                    <!--
-                    <ul id="id_munu_ul">
-                        <li><h:link outcome="/b/b0010" value="B0010"/></li>
-                        <li><h:link outcome="/b/b0020" value="B0020"/></li>
-                    </ul>
-                    -->
                 </nav>
                 
                 <!-- 個別ページ内容 -->

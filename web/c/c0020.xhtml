@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="/templateEach.xhtml">
+            <ui:define name="headEach">
+                <h:outputStylesheet library="css" name="c0020.css"/>
+            </ui:define>
+            <ui:define name="contentEach">
+                <h:form>
+                    <p:schedule value="#{c0020.model}" rightHeaderTemplate="" widgetVar="myschedule" draggable="false" resizable="false">
+                        <p:ajax event="dateSelect" listener="#{c0020.onDateSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
+                        <p:ajax event="eventSelect" listener="#{c0020.onEventSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
+                    </p:schedule>
+
+                    <p:dialog widgetVar="eventDialog" header="編集" showEffect="fade" modal="true" resizable="false" height="300" width="500">
+                        <h:panelGrid id="eventDetails" columns="2">
+                            <h:outputText value="#{c0020.event.startDate}">
+                                <f:convertDateTime pattern="yyyy年M月d日" type="localDate"/>
+                            </h:outputText>
+                            
+                            <h:outputText value="#{c0020.event.title}"/>
+                            
+                            <p:outputLabel for="data" value="ユーザID" />
+                            <p:inputText id="data" value="#{c0020.event.data}"/>
+
+                            <p:commandButton id="addButton" value="登録" icon="pi pi-pencil" action="#{c0020.addEvent}" oncomplete="PF('myschedule').update();" style="margin-right: 40px;" update="eventDetails growl"/>
+                            <p:commandButton id="removeButton" value="削除" icon="pi pi-trash" class="deleteBtn" action="#{c0020.removeEvent()}" oncomplete="PF('myschedule').update();PF('eventDialog').hide();" update="growl" rendered="#{c0020.event.title != null}">
+                                <p:confirm header="確認" message="削除しますか？" icon="pi pi-exclamation-triangle" />
+                            </p:commandButton>
+                            <p:confirmDialog global="true" showEffect="fade">
+                                <p:commandButton value="はい" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+                                <p:commandButton value="いいえ" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+                            </p:confirmDialog>
+                        </h:panelGrid>
+                    </p:dialog>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+
