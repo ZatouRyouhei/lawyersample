@@ -27,6 +27,14 @@
         </script>
     </h:head>
     <h:body>
+        <!-- IEバスター -->
+        <h:outputScript library="js" name="ie-buster.js"/>
+        <script>
+            ieBuster({
+              mainText: "ご利用のインターネットブラウザは推奨環境ではありません。Webサイトの動作が保証できませんので、最新の Edge／Chrome／Firefox をご利用ください。"
+            })
+        </script>
+        
         <!-- メッセージを出す場合は、ボタンのupdate属性にgrowlをつける -->
         <p:growl id="growl" life="3000" globalOnly="true"  showDetail="true"/>
         <!-- ページ内容 -->
