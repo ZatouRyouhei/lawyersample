@@ -1,14 +1,18 @@
 package beans;
 
+import db.HolidayDb;
 import db.JudgeScheduleDb;
 import db.UserDb;
+import entity.Holiday;
 import entity.JudgeSchedule;
 import entity.User;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
-import javax.faces.application.FacesMessage;
+import java.util.stream.Collectors;
+import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -28,10 +32,14 @@ public class C0020 extends SuperBb implements Serializable {
     JudgeScheduleDb judgeScheduleDb;
     @Inject
     UserDb userDb;
+    @Inject
+    HolidayDb holidayDb;
     
     private ScheduleModel model;
 
     private DefaultScheduleEvent event = new DefaultScheduleEvent();
+    
+    private String holidays;
     
     public C0020() {
         model = new LazyScheduleModel() {
@@ -69,8 +77,33 @@ public class C0020 extends SuperBb implements Serializable {
                                 .build());
                     }
                 });
+                
+                // startからendまでの祝日を取得する。
+//                List<Holiday> holidayList = holidayDb.getHolidays(startDate, endDate);
+//                DateTimeFormatter fmt = DateTimeFormatter.ofPattern("y-MM-dd");
+//                holidays = holidayList
+//                                .stream()
+//                                .map(holiday -> "['" + holiday.getHoliday().format(fmt) + "','" + holiday.getName() + "']")
+//                                .collect(Collectors.joining(","));
+//                System.out.println(holidays);
+                //holidays = "['2020-11-03', '文化の日'], ['2020-11-23', '勤労感謝の日']";
             }
         };
+        
+        // 初期表示用　今日の日付から前後2か月の祝日を取得する。
+        //holidays = "['2020-11-03', '文化の日']";
+        
+       
+    }
+    
+    @PostConstruct
+    public void init() {
+        List<Holiday> holidayList = holidayDb.getAll();
+        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("y-MM-dd");
+        holidays = holidayList
+                        .stream()
+                        .map(holiday -> "['" + holiday.getHoliday().format(fmt) + "','" + holiday.getName() + "']")
+                        .collect(Collectors.joining(","));
     }
     
     /**
@@ -96,13 +129,13 @@ public class C0020 extends SuperBb implements Serializable {
                     judgeScheduleDb.update(judgeSchedule);
                 } else {
                     // 空きがないので登録不可
-                    addMessage(FacesMessage.SEVERITY_ERROR, "1日に3名以上は登録できません。");
+                    addErrorMessage("1日に3名以上は登録できません。");
                     return;
                 }
             }
         } else {
             // ユーザ存在しないときはエラー
-            addMessage(FacesMessage.SEVERITY_ERROR, "該当のユーザは存在しません。");
+            addErrorMessage("該当のユーザは存在しません。");
             return;
         }
         
@@ -122,7 +155,7 @@ public class C0020 extends SuperBb implements Serializable {
             model.updateEvent(event);
         // 入力欄をリセットする。
         event = DefaultScheduleEvent.builder().startDate(event.getStartDate()).endDate(event.getStartDate().plusDays(1)).build();
-        addMessage(FacesMessage.SEVERITY_INFO, "登録しました。");
+        addInfoMessage("登録しました。");
     }
     
     /**
@@ -149,7 +182,7 @@ public class C0020 extends SuperBb implements Serializable {
                 }
                 model.deleteEvent(event);
                 event = new DefaultScheduleEvent();
-                addMessage(FacesMessage.SEVERITY_INFO, "削除しました。");
+                addInfoMessage("削除しました。");
             }
         }
     }
@@ -170,7 +203,7 @@ public class C0020 extends SuperBb implements Serializable {
         // 日時範囲は選択した日の0:00から翌日の0:00を設定
         event = DefaultScheduleEvent.builder().startDate(selectEvent.getObject()).endDate(selectEvent.getObject().plusDays(1)).build();
     }
-
+    
     public ScheduleModel getModel() {
         return model;
     }
@@ -185,5 +218,13 @@ public class C0020 extends SuperBb implements Serializable {
 
     public void setEvent(DefaultScheduleEvent event) {
         this.event = event;
+    }
+
+    public String getHolidays() {
+        return holidays;
+    }
+
+    public void setHolidays(String holidays) {
+        this.holidays = holidays;
     }
 }

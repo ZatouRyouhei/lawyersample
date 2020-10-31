@@ -23,3 +23,14 @@ body .fc .fc-sat {
 body .fc td.fc-today {
     background-color: #fcf8e3;
 }
+
+body .fc .fc-holiday {
+    background-color: #fae6e3;
+}
+
+span.holiday-name {
+    font-size: 80%;
+    display: inline-block;
+    margin-top: 3px;
+    margin-left: 2px;
+}

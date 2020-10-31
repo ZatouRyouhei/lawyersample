@@ -21,6 +21,18 @@ public class SuperBb {
         context.addMessage(null, msgSummary);
     }
     
+    protected void addInfoMessage (String message) {
+        FacesContext context = FacesContext.getCurrentInstance(); 
+        FacesMessage msgSummary = new FacesMessage(FacesMessage.SEVERITY_INFO, "完了", message);
+        context.addMessage(null, msgSummary);
+    }
+    
+    protected void addErrorMessage (String message) {
+        FacesContext context = FacesContext.getCurrentInstance(); 
+        FacesMessage msgSummary = new FacesMessage(FacesMessage.SEVERITY_ERROR, "入力エラー", message);
+        context.addMessage(null, msgSummary);
+    }
+    
     /**
      * アプリケーションルートからの相対パスを絶対パスに変換する
      * @param path  アプリケーションルートのリソースからの相対パス（ex. /resources/～）

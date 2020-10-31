@@ -12,10 +12,20 @@
         <ui:composition template="/templateEach.xhtml">
             <ui:define name="headEach">
                 <h:outputStylesheet library="css" name="c0020.css"/>
+                <script>
+                    function setHoliday() {
+                        let holidays = [#{c0020.holidays}];
+                        holidays.forEach((holiday) => {
+                            $('[data-date=' + holiday[0] + ']').addClass("fc-holiday");
+                            $('[data-date=' + holiday[0] + '].fc-day-top').children('span.holiday-name').remove();
+                            $('[data-date=' + holiday[0] + '].fc-day-top').prepend('<span class="holiday-name">' + holiday[1] + '</span>');
+                        });
+                    }
+                </script>
             </ui:define>
             <ui:define name="contentEach">
                 <h:form>
-                    <p:schedule value="#{c0020.model}" rightHeaderTemplate="" widgetVar="myschedule" draggable="false" resizable="false">
+                    <p:schedule value="#{c0020.model}" rightHeaderTemplate="" widgetVar="myschedule" draggable="false" resizable="false" locale="ja">
                         <p:ajax event="dateSelect" listener="#{c0020.onDateSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
                         <p:ajax event="eventSelect" listener="#{c0020.onEventSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
                     </p:schedule>
@@ -29,9 +39,10 @@
                             <h:outputText value="#{c0020.event.title}"/>
                             
                             <p:outputLabel for="data" value="ユーザID" />
-                            <p:inputText id="data" value="#{c0020.event.data}"/>
+                            <p:inputText id="data" value="#{c0020.event.data}" rendered="#{c0020.event.title == null}"/>
+                            <h:outputText value="#{c0020.event.data}" rendered="#{c0020.event.title != null}"/>
 
-                            <p:commandButton id="addButton" value="登録" icon="pi pi-pencil" action="#{c0020.addEvent}" oncomplete="PF('myschedule').update();" style="margin-right: 40px;" update="eventDetails growl"/>
+                            <p:commandButton id="addButton" value="登録" icon="pi pi-pencil" action="#{c0020.addEvent}" oncomplete="PF('myschedule').update();" style="margin-right: 40px;" update="eventDetails growl" rendered="#{c0020.event.title == null}"/>
                             <p:commandButton id="removeButton" value="削除" icon="pi pi-trash" class="deleteBtn" action="#{c0020.removeEvent()}" oncomplete="PF('myschedule').update();PF('eventDialog').hide();" update="growl" rendered="#{c0020.event.title != null}">
                                 <p:confirm header="確認" message="削除しますか？" icon="pi pi-exclamation-triangle" />
                             </p:commandButton>
@@ -42,6 +53,8 @@
                         </h:panelGrid>
                     </p:dialog>
                 </h:form>
+                
+                <p:ajaxStatus oncomplete="setHoliday()"/>
             </ui:define>
         </ui:composition>
     </h:body>
