@@ -15,6 +15,8 @@
             </ui:define>
             
             <ui:define name="contentEach">
+                <p:importConstants type="entity.Memo" var="memoConstants"/>
+                
                 <h:form id="id_c0010_form" prependId="false">
                     <div id="id_c0010_detail">
                         <p:outputLabel for="id_search_detail" value="メモ" />
@@ -83,7 +85,7 @@
                         <h:panelGrid id="grid" columns="3" cellpadding="5">
                             ID<h:outputText value="#{c0010.selectedMemo.id}"/><span></span>
                             <p:outputLabel for="id_detail" value="メモ" />
-                            <p:inputText id="id_detail" value="#{c0010.selectedMemo.detail}" required="true" maxlength="#{memoSize.detailSize}"/>
+                            <p:inputText id="id_detail" value="#{c0010.selectedMemo.detail}" required="true" maxlength="#{memoConstants.SIZE_DETAIL}"/>
                             <p:message for="id_detail" />
                             
                             <p:outputLabel for="id_registdate" value="登録日" />

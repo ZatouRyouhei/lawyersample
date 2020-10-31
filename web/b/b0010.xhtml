@@ -15,6 +15,8 @@
             </ui:define>
             
             <ui:define name="contentEach">
+                <p:importConstants type="entity.Memo" var="memoConstants"/>
+                
                 <h:form id="id_b0010_form">
                     <div id="id_b0010_detail">
                         <p:outputLabel for="id_search_detail" value="メモ" />
@@ -83,7 +85,7 @@
                             ID<h:outputText value="#{b0010.selectedMemo.id}"/><span></span>
                             <p:outputLabel for="id_detail" value="メモ" />
                             <!-- 一時保存の時は必須チェックはしない。 -->
-                            <p:inputText id="id_detail" value="#{b0010.selectedMemo.detail}" required="#{param['id_b0010_detail_form:detail_save']==null}" maxlength="#{memoSize.detailSize}"/>
+                            <p:inputText id="id_detail" value="#{b0010.selectedMemo.detail}" required="#{param['id_b0010_detail_form:detail_save']==null}" maxlength="#{memoConstants.SIZE_DETAIL}"/>
                             <p:message for="id_detail" />
                             
                             <p:outputLabel for="id_registdate" value="登録日" />
@@ -121,7 +123,7 @@
                         <h:panelGrid id="grid" columns="3" cellpadding="5">
                             <p:outputLabel for="id_detail" value="メモ" />
                             <!-- 一時保存の時は必須チェックはしない。 -->
-                            <p:inputText id="id_detail" value="#{b0010.detail}" required="#{param['id_b0010_new_form:save']==null}" maxlength="#{memoSize.detailSize}"/>
+                            <p:inputText id="id_detail" value="#{b0010.detail}" required="#{param['id_b0010_new_form:save']==null}" maxlength="#{memoConstants.SIZE_DETAIL}"/>
                             <p:message for="id_detail" />
                             
                             <p:outputLabel for="id_registdate" value="登録日" />
