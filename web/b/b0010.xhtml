@@ -97,7 +97,8 @@
                                           showButtonBar="true"
                                           required="true"
                                           monthNavigator="true"
-                                          yearNavigator="true"/>
+                                          yearNavigator="true"
+                                          dateTemplate="dateTemplateFunc"/>
                             <p:message for="id_registdate" />
                         </h:panelGrid>
                         <p:commandButton id="detail_submit" action="#{b0010.update()}" value="変更" update="id_b0010_detail_form id_b0010_form growl" icon="pi pi-pencil" style="margin-right: 40px; margin-top: 20px;"/>
@@ -135,7 +136,8 @@
                                           showButtonBar="true"
                                           required="true"
                                           monthNavigator="true"
-                                          yearNavigator="true"/>
+                                          yearNavigator="true"
+                                          dateTemplate="dateTemplateFunc"/>
                             <p:message for="id_registdate" />
                         </h:panelGrid>
                         <p:commandButton id="submit" action="#{b0010.regist()}" value="登録" update="id_b0010_new_form id_b0010_form" icon="pi pi-plus" style="margin-right: 40px; margin-top: 20px;"/>

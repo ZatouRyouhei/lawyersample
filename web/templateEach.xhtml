@@ -29,6 +29,33 @@
                         today: '今日',
                         clear: 'クリア'
                     };
+                    
+                    // 土日祝日に色を付ける。
+                    // for文の小なり記号使うためにCDATAの記載をする。
+                    //<![CDATA[
+                    function dateTemplateFunc(date) {
+                        let targetDate = new Date(date.year, date.month, date.day);
+                        let dispDay;
+                        if (targetDate.getDay() === 0) {
+                            dispDay = '<span class="cal-sun">' + date.day + '</span>';
+                        } else if (targetDate.getDay() === 6) {
+                            dispDay = '<span class="cal-sat">' + date.day + '</span>';
+                        } else {
+                            dispDay = '<span>' + date.day + '</span>';
+                        }
+                        
+                        let holidayArr = [#{holidaySession.holidayList}];
+                        let targetDateStr = date.year + '-' + ('00' + (date.month+1)).slice(-2) + '-' + ('00' + date.day).slice(-2);
+                        for (let i = 0; i < holidayArr.length; i++) {
+                            if (holidayArr[i][0] === targetDateStr) {
+                                dispDay = '<span class="cal-holiday" title="' + holidayArr[i][1] + '">' + date.day + '</span>';
+                                break;
+                            }
+                        }
+                        
+                        return dispDay;
+                    }
+                    //]]>
                 </script>
                 <ui:insert name="headEach"/>
             </ui:define>

@@ -72,3 +72,21 @@ nav {
     grid-column: 3 / 4;
     grid-row: main / span 1;
 }
+
+span[title='日'] {
+    color: #b94a48;
+}
+
+span[title='土'] {
+    color: #116fbf;
+}
+
+span.cal-sun, span.cal-holiday {
+    color: #b94a48;
+    background-color: #fae6e3;
+}
+
+span.cal-sat {
+    color: #116fbf;
+    background-color: #dceef7;
+}
