@@ -15,6 +15,9 @@ public class SuperBb {
     @Inject
     LoginSession loginSession;
     
+    @Inject
+    HolidaySession holidaySession;
+    
     protected void addMessage (FacesMessage.Severity severity, String message) {
         FacesContext context = FacesContext.getCurrentInstance(); 
         FacesMessage msgSummary = new FacesMessage(severity, message, "");

@@ -1,12 +1,18 @@
 package beans;
 
+import db.HolidayDb;
 import db.UserDb;
+import entity.Holiday;
 import entity.User;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.stream.Collectors;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -27,8 +33,11 @@ public class A0010 extends SuperBb {
     private String changePassword;
     private String changePasswordConfirm;
 
-     @EJB
+    @EJB
     UserDb userDb;
+     
+    @Inject
+    HolidayDb holidayDb;
      
     /**
      * ログイン処理
@@ -47,6 +56,15 @@ public class A0010 extends SuperBb {
             addMessage(FacesMessage.SEVERITY_ERROR, "ログインできませんでした。");
             return "";
         }
+        
+        // 祝日データを取得
+        List<Holiday> holidayList = holidayDb.getAll();
+        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("y-MM-dd");
+        String holidayArr = holidayList
+                            .stream()
+                            .map(holiday -> "['" + holiday.getHoliday().format(fmt) + "','" + holiday.getName() + "']")
+                            .collect(Collectors.joining(","));
+        holidaySession.setHolidayList(holidayArr);
         
         // ログイン成功
         switch (loginSession.getRoleName()) {

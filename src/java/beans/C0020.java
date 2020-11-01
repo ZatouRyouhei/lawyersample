@@ -1,17 +1,13 @@
 package beans;
 
-import db.HolidayDb;
 import db.JudgeScheduleDb;
 import db.UserDb;
-import entity.Holiday;
 import entity.JudgeSchedule;
 import entity.User;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
@@ -32,8 +28,6 @@ public class C0020 extends SuperBb implements Serializable {
     JudgeScheduleDb judgeScheduleDb;
     @Inject
     UserDb userDb;
-    @Inject
-    HolidayDb holidayDb;
     
     private ScheduleModel model;
 
@@ -62,6 +56,7 @@ public class C0020 extends SuperBb implements Serializable {
                                 .data(schedule.getJudgeUser1().getUserId())
                                 .editable(false)
                                 .allDay(true)
+                                .description(schedule.getJudgeUser1().getUserId())
                                 .build());
                     }
                     // 審査員２
@@ -74,36 +69,17 @@ public class C0020 extends SuperBb implements Serializable {
                                 .data(schedule.getJudgeUser2().getUserId())
                                 .editable(false)
                                 .allDay(true)
+                                .description(schedule.getJudgeUser2().getUserId())
                                 .build());
                     }
                 });
-                
-                // startからendまでの祝日を取得する。
-//                List<Holiday> holidayList = holidayDb.getHolidays(startDate, endDate);
-//                DateTimeFormatter fmt = DateTimeFormatter.ofPattern("y-MM-dd");
-//                holidays = holidayList
-//                                .stream()
-//                                .map(holiday -> "['" + holiday.getHoliday().format(fmt) + "','" + holiday.getName() + "']")
-//                                .collect(Collectors.joining(","));
-//                System.out.println(holidays);
-                //holidays = "['2020-11-03', '文化の日'], ['2020-11-23', '勤労感謝の日']";
             }
         };
-        
-        // 初期表示用　今日の日付から前後2か月の祝日を取得する。
-        //holidays = "['2020-11-03', '文化の日']";
-        
-       
     }
     
     @PostConstruct
     public void init() {
-        List<Holiday> holidayList = holidayDb.getAll();
-        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("y-MM-dd");
-        holidays = holidayList
-                        .stream()
-                        .map(holiday -> "['" + holiday.getHoliday().format(fmt) + "','" + holiday.getName() + "']")
-                        .collect(Collectors.joining(","));
+        holidays = holidaySession.getHolidayList();
     }
     
     /**
