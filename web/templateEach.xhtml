@@ -99,13 +99,13 @@
                 <nav>
                     <h:form id="id_menu_form">
                         <p:panelMenu style="width:200px">
-                            <p:submenu label="メニュー">
+                            <p:submenu label="メニュー" expanded="true">
                                 <p:menuitem value="B0010" outcome="/b/b0010" icon="pi pi-save" ajax="false" rendered="#{facesContext.externalContext.isUserInRole('ADMIN')}"/>
                                 <p:menuitem value="B0020" outcome="/b/b0020" icon="pi pi-refresh" ajax="false" rendered="#{facesContext.externalContext.isUserInRole('ADMIN')}"/>
                                 <p:menuitem value="C0010" outcome="/c/c0010" icon="pi pi-refresh" ajax="false" rendered="#{facesContext.externalContext.isUserInRole('STAFF')}"/>
                                 <p:menuitem value="C0020" outcome="/c/c0020" icon="pi pi-calendar" ajax="false" rendered="#{facesContext.externalContext.isUserInRole('STAFF')}"/>
                             </p:submenu>
-                            <p:submenu label="メニュー２">
+                            <p:submenu label="メニュー２" expanded="true">
                                 <p:menuitem value="メニュー１" icon="pi pi-save" />
                                 <p:menuitem value="メニュー２" icon="pi pi-refresh" />
                             </p:submenu>

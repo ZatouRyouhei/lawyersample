@@ -35,7 +35,8 @@
                                       yearNavigator="true"
                                       size="40"
                                       style="margin-left: 10px;"
-                                      disabled="#{c0010.disabaledFlg}"/>
+                                      disabled="#{c0010.disabaledFlg}"
+                                      dateTemplate="dateTemplateFunc"/>
                     </div>
                     <div id="id_search_btn">
                         <p:commandButton value="検索" action="#{c0010.search()}" icon="pi pi-search" update="id_c0010_form" onstart="loadStart();" oncomplete="loadEnd()" style="margin-right: 40px;"/>
