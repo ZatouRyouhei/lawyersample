@@ -1,9 +1,13 @@
 package beans;
 
+import db.Memo2Db;
 import db.SentenceDb;
+import db.UserDb;
 import dto.UploadFile;
+import entity.Memo2;
 import entity.Sentence;
 import entity.SentenceKey;
+import entity.User;
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.FileOutputStream;
@@ -17,9 +21,11 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.validator.ValidatorException;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -51,6 +57,19 @@ public class B0020 extends SuperBb implements Serializable {
     
     @Inject
     SentenceDb sentenceDb;
+    @Inject
+    UserDb userDb;
+    @Inject
+    Memo2Db memo2Db;
+    
+    @PostConstruct
+    public void init() {
+        Memo2 memo2 = memo2Db.search(loginSession.getUserId());
+        if (memo2 != null) {
+            sentence = memo2.getMemo();
+            others = memo2.getOther();
+        }
+    }
     
     public String createSentenceTemplate() {
         Sentence selectSentence = sentenceDb.search(new SentenceKey(sentenceType, sentenceSubType));
@@ -86,6 +105,13 @@ public class B0020 extends SuperBb implements Serializable {
                 } catch (IOException ex) {
                 }
             }
+        }
+        
+        Memo2 memo2 = new Memo2(loginSession.getUserId(), sentence, others);
+        if (memo2Db.search(loginSession.getUserId()) != null) {
+            memo2Db.update(memo2);
+        } else {
+            memo2Db.add(memo2);
         }
         addMessage(FacesMessage.SEVERITY_INFO, "登録しました。");
         return "";
