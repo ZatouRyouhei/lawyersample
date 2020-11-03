@@ -15,15 +15,18 @@
             </ui:define>
             
             <ui:define name="contentEach">
+                <p:importConstants type="entity.Memo2" var="memo2Constants"/>
+                
                 <h:form prependId="false" id="id_b0020_form">
                     <p:messages id="id_b0020_msg" closable="true" globalOnly="true"/>
                     <h:panelGrid id="id_panel" columns="3" cellpadding="5">
                         <p:outputLabel for="id_sentence" value="文章" />
-                        <p:inputTextarea id="id_sentence" rows="10" cols="50" maxlength="50" value="#{b0020.sentence}" required="true"/>
+                        <!-- 改行は１文字として数えられる。DBにも1文字分で登録されるのでうまくいく。 -->
+                        <p:inputTextarea id="id_sentence" rows="10" cols="50" value="#{b0020.sentence}" required="true" maxlength="#{memo2Constants.SIZE_MEMO}"/>
                         <p:message for="id_sentence" />
 
                         <p:outputLabel for="id_others" value="その他"/>
-                        <p:inputText id="id_others" required="true" value="#{b0020.others}"/>
+                        <p:inputText id="id_others" required="true" value="#{b0020.others}" maxlength="#{memo2Constants.SIZE_OTHER}"/>
                         <p:message for="id_others" />
                         
                         <!-- サブミットボタンでアップロードする場合は、mode="simple"とする。-->
