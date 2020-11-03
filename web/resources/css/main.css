@@ -95,4 +95,7 @@ body {
     -ms-transform: translateX(-50%);
 }
 
+#growl_container .ui-growl-item-container {
+    opacity: 1.0;
+}
 
