@@ -5,6 +5,7 @@ body {
     grid-template-columns: 1fr;
     grid-template-rows:
         [logo] 400px
+        [title] auto
         [login] auto;
 }
 
@@ -15,31 +16,20 @@ figure {
     align-self: end;
 }
 
+h1 {
+    grid-column: 1 / -1;
+    grid-row: title / span 1;
+    justify-self: center;
+    align-self: start;
+    font-size: 4em;
+}
+
 section {
     grid-column: 1 / -1;
     grid-row: login / span 1;
     justify-self: center;
-    align-self: start;
-}
-
-#id_form {
-    width: 270px;
-    display: grid;
-    grid-template-rows:
-        [row1] 80px
-        [row2] auto;
-}
-
-#msgs {
-    grid-row: row1 / span 1;
-    justify-self: center;
-    align-self: start;
-}
-
-#id_form_panel {
-    grid-row: row2 / span 1;
-    justify-self: center;
-    align-self: start;
+    align-self: end;
+    margin-top: 20px;
 }
 
 #id_loginId {
@@ -52,4 +42,5 @@ section {
 .ui-float-label {
     margin-bottom: 20px;
 }
+
 

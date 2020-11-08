@@ -53,7 +53,7 @@ public class A0010 extends SuperBb {
             loginSession.setName(user.getName());
             loginSession.setMail(user.getMail());
         } catch (ServletException ex) {
-            addMessage(FacesMessage.SEVERITY_ERROR, "ログインできませんでした。");
+            addErrorMessage("ログインできませんでした。");
             return "";
         }
         

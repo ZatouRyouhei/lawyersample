@@ -22,7 +22,7 @@ header {
 
 header h2 {
     margin-top: 10px;
-    margin-left:110px;
+    margin-left:100px;
 }
 
 #id_title_logo {
@@ -32,7 +32,7 @@ header h2 {
     align-self: center;
     margin-left: 40px;
     z-index: 1;
-    width: 50px;
+    width: 40px;
 }
 
 #userIcon {

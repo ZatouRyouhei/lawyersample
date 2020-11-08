@@ -32,7 +32,7 @@ public class SuperBb {
     
     protected void addErrorMessage (String message) {
         FacesContext context = FacesContext.getCurrentInstance(); 
-        FacesMessage msgSummary = new FacesMessage(FacesMessage.SEVERITY_ERROR, "入力エラー", message);
+        FacesMessage msgSummary = new FacesMessage(FacesMessage.SEVERITY_ERROR, "エラー", message);
         context.addMessage(null, msgSummary);
     }
     
