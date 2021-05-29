@@ -4,6 +4,7 @@
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<parameter name="userName" class="java.lang.String"/>
 	<parameter name="reportImage" class="java.io.InputStream"/>
+	<parameter name="tNumber" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -33,6 +34,12 @@
 				<reportElement x="450" y="20" width="50" height="50" uuid="05a0ebdd-7258-47ce-bb22-908e8d75bde4"/>
 				<imageExpression><![CDATA[$P{reportImage}]]></imageExpression>
 			</image>
+			<componentElement>
+				<reportElement x="30" y="24" width="100" height="30" uuid="ade8da61-75be-4e84-9a31-107e234f751e"/>
+				<jr:Code128 xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<jr:codeExpression><![CDATA[$P{tNumber}]]></jr:codeExpression>
+				</jr:Code128>
+			</componentElement>
 		</band>
 	</title>
 	<pageHeader>

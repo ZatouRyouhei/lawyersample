@@ -45,6 +45,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.krysalis.barcode4j.impl.code128.Code128;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import org.primefaces.shaded.commons.io.FilenameUtils;
@@ -283,6 +284,8 @@ public class B0010 extends SuperBb implements Serializable {
                 String imgPath = getRealPath("resources/img/inkan.png");
                 InputStream imgSrc = new FileInputStream(imgPath);
                 params.put("reportImage", imgSrc);
+                // バーコード情報
+                params.put("tNumber", "T210514");
                 List<Memo> memoList = memoDb.searchMemo(searchDetail, searchRegistDate);
                 JasperPrint pdf = JasperFillManager.fillReport(jasperReport, params, new JRBeanCollectionDataSource(memoList));
                 
