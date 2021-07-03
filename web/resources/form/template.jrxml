@@ -21,7 +21,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Genju" size="18"/>
 				</textElement>
-				<text><![CDATA[メモ一覧]]></text>
+				<text><![CDATA[サンプル]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="380" y="30" width="100" height="30" uuid="535ef718-5055-4ac4-baa6-84477fdae548"/>
