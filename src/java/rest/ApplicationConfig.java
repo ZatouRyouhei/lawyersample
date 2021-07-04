@@ -5,7 +5,7 @@ import javax.ws.rs.core.Application;
 
 /**
  *
- * @author ryouhei
+ * @author satouxr
  */
 @ApplicationPath("/webresources")
 public class ApplicationConfig extends Application{

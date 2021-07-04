@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 /**
  *
- * @author ryouhei
+ * @author satouxr
  */
 public class SampleDto {
     private long id;
